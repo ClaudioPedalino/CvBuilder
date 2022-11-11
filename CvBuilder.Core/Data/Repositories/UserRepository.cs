@@ -27,6 +27,11 @@ namespace CvBuilder.Core.Data.Repositories
             return _dataContext.Users.FirstOrDefault(x => x.Id == id);
         }
 
+        public User GetUserByUserName(string email)
+        {
+            return _dataContext.Users.FirstOrDefault(x => x.UserName == email);
+        }
+
         public void CreateUser(User entity)
         {
             _dataContext.Users.Add(entity);

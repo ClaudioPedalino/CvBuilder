@@ -6,6 +6,7 @@ namespace CvBuilder.Core.Interfaces.IRepositories
     {
         List<User> GetUsers();
         User GetUserById(Guid id);
+        User GetUserByUserName(string email);
 
         void CreateUser(User entity);
         void AddAboutMeToUser(AboutMe entity);

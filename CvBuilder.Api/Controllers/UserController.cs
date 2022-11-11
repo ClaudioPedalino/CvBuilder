@@ -3,6 +3,7 @@ using CvBuilder.Core.UserCases.Commands.AddAboutMeToUser;
 using CvBuilder.Core.UserCases.Commands.AddSkillToUser;
 using CvBuilder.Core.UserCases.Commands.AddWorkExperienceToUser;
 using CvBuilder.Core.UserCases.Commands.CreateUser;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CvBuilder.Api.Controllers
@@ -34,13 +35,14 @@ namespace CvBuilder.Api.Controllers
         [HttpPost("create")]
         public IResult CreateUser([FromBody] CreateUserCommand command)
         {
-            var response = _service.CreateUser(command);
+            var response = _service.RegisterUser(command);
 
             return Results.Ok(response);
         }
 
 
         [HttpPost("add-about-me")]
+        [Authorize]
         public IResult AddAboutMeToUser([FromBody] AddAboutMeToUserCommand command)
         {
             var response = _service.AddAboutMeToUser(command);
@@ -50,6 +52,7 @@ namespace CvBuilder.Api.Controllers
 
 
         [HttpPost("add-work-experience")]
+        [Authorize]
         public IResult AddWorkExperienceToUser([FromBody] AddWorkExperienceToUserCommand command)
         {
             var response = _service.AddWorkExperienceToUser(command);
@@ -59,6 +62,7 @@ namespace CvBuilder.Api.Controllers
 
 
         [HttpPost("add-skill")]
+        [Authorize]
         public IResult AddSkillToUser([FromBody] AddSkillToUserCommand command)
         {
             var response = _service.AddSkillToUser(command);

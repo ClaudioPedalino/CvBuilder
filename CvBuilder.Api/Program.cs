@@ -35,6 +35,7 @@ builder.Configuration.Bind(nameof(jwtSettings), jwtSettings);
 builder.Services.AddSingleton(jwtSettings);
 
 builder.Services
+    .AddAuthorization()
     .AddAuthentication(x =>
     {
         x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -54,8 +55,11 @@ builder.Services
             ValidateLifetime = true
         };
     });
+
 builder.Services.AddDefaultIdentity<User>()
     .AddEntityFrameworkStores<DataContext>();
+
+builder.Services.AddHttpContextAccessor();
 
 ///
 var app = builder.Build();
@@ -64,6 +68,7 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 

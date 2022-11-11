@@ -1,4 +1,5 @@
-﻿using CvBuilder.Core.UserCases.Commands.AddAboutMeToUser;
+﻿using CvBuilder.Core.Identity;
+using CvBuilder.Core.UserCases.Commands.AddAboutMeToUser;
 using CvBuilder.Core.UserCases.Commands.AddSkillToUser;
 using CvBuilder.Core.UserCases.Commands.AddWorkExperienceToUser;
 using CvBuilder.Core.UserCases.Commands.CreateUser;
@@ -10,7 +11,8 @@ namespace CvBuilder.Core.Interfaces.IServices
     {
         List<GetUserResponse> GetUsers();
 
-        string CreateUser(CreateUserCommand command);
+        //string CreateUser(CreateUserCommand command);
+        AuthenticationResult RegisterUser(CreateUserCommand command);
         string AddAboutMeToUser(AddAboutMeToUserCommand command);
         string AddWorkExperienceToUser(AddWorkExperienceToUserCommand command);
         string AddSkillToUser(AddSkillToUserCommand command);

@@ -22,6 +22,7 @@ namespace CvBuilder.Core.Entities
             Location = location;
             Github = github;
             
+            UserName = email;
             Active = true;
             WorkExperiences = new List<WorkExperience>();
             Skills = new List<Skill>();

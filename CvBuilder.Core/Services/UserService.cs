@@ -1,4 +1,5 @@
 ﻿using CvBuilder.Core.Entities;
+using CvBuilder.Core.Extensions;
 using CvBuilder.Core.Identity;
 using CvBuilder.Core.Interfaces.IRepositories;
 using CvBuilder.Core.Interfaces.IServices;
@@ -8,6 +9,7 @@ using CvBuilder.Core.UserCases.Commands.AddSkillToUser;
 using CvBuilder.Core.UserCases.Commands.AddWorkExperienceToUser;
 using CvBuilder.Core.UserCases.Commands.CreateUser;
 using CvBuilder.Core.UserCases.Queries.GetUsers;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 
@@ -18,14 +20,14 @@ namespace CvBuilder.Core.Services
         private readonly IUserRepository _repo;
         private readonly UserManager<User> _userManager;
         private readonly IAuthTokernHelper _authTokernHelper;
-        private readonly IConfiguration _configuration;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public UserService(IUserRepository repo, UserManager<User> userManager, IConfiguration configuration, IAuthTokernHelper authTokernHelper)
+        public UserService(IUserRepository repo, UserManager<User> userManager, IAuthTokernHelper authTokernHelper, IHttpContextAccessor httpContextAccessor)
         {
             _repo = repo;
             _userManager = userManager;
-            _configuration = configuration;
             _authTokernHelper = authTokernHelper;
+            _httpContextAccessor = httpContextAccessor;
         }
 
 
@@ -34,16 +36,6 @@ namespace CvBuilder.Core.Services
             var result = _repo.GetUsers();
 
             return UserMapper.Map(result);
-        }
-
-
-        public string CreateUser(CreateUserCommand command)
-        {
-            var entity = UserMapper.Map(command);
-
-            _repo.CreateUser(entity);
-
-            return "ok";
         }
 
 
@@ -79,7 +71,7 @@ namespace CvBuilder.Core.Services
 
         public string AddAboutMeToUser(AddAboutMeToUserCommand command)
         {
-            var user = _repo.GetUserById(command.UserId);
+            var user = _repo.GetUserByUserName(_httpContextAccessor.GetUserNameFromToken());
 
             if (user == default)
                 return "The user does not exist";
@@ -94,7 +86,7 @@ namespace CvBuilder.Core.Services
 
         public string AddWorkExperienceToUser(AddWorkExperienceToUserCommand command)
         {
-            var user = _repo.GetUserById(command.UserId);
+            var user = _repo.GetUserByUserName(_httpContextAccessor.GetUserNameFromToken());
 
             if (user == default)
                 return "The user does not exist";
@@ -108,7 +100,7 @@ namespace CvBuilder.Core.Services
 
         public string AddSkillToUser(AddSkillToUserCommand command)
         {
-            var user = _repo.GetUserById(command.UserId);
+            var user = _repo.GetUserByUserName(_httpContextAccessor.GetUserNameFromToken());
 
             if (user == default)
                 return "The user does not exist";
