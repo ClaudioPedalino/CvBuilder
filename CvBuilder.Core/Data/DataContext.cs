@@ -6,7 +6,7 @@ namespace CvBuilder.Core.Data
 {
     public class DataContext : DbContext
     {
-        public DataContext() { }
+        //public DataContext() { }
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
 
 
@@ -17,18 +17,14 @@ namespace CvBuilder.Core.Data
 
 
 
-        protected override void OnConfiguring(DbContextOptionsBuilder options)
-        {
-            if (!options.IsConfigured)
-            {
-                options.UseSqlServer("Server=localhost;Database=CvBuilder2;User Id=sa;Password=Temporal1;TrustServerCertificate=True;");
-            }
-        }
+        //protected override void OnConfiguring(DbContextOptionsBuilder options)
+        //{
+        //    if (!options.IsConfigured)
+        //    {
+        //        options.UseSqlServer("Server=localhost;Database=CvBuilder2;User Id=sa;Password=Temporal1;TrustServerCertificate=True;");
+        //    }
+        //}
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-        }
 
         protected override void ConfigureConventions(ModelConfigurationBuilder builder)
         {

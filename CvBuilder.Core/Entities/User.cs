@@ -1,6 +1,8 @@
-﻿namespace CvBuilder.Core.Entities
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace CvBuilder.Core.Entities
 {
-    public class User
+    public class User : IdentityUser
     {
         public User(string firstName,
                     string lastName,
@@ -19,6 +21,8 @@
             Linkedin = linkedin;
             Location = location;
             Github = github;
+            
+            Active = true;
             WorkExperiences = new List<WorkExperience>();
             Skills = new List<Skill>();
         }
@@ -29,10 +33,11 @@
         public string LastName { get; private set; }
         public int Age { get; private set; }
         public string CurrentPosition { get; private set; }
-        public string Email { get; private set; }
+        public override string Email { get; set; }
         public string Linkedin { get; private set; }
         public string Location { get; private set; }
         public string Github { get; private set; }
+        public bool Active { get; private set; }
 
         public List<AboutMe> AboutMe { get; set; }
         public List<WorkExperience> WorkExperiences { get; set; }
