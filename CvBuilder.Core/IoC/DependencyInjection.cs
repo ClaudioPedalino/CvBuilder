@@ -1,6 +1,4 @@
-﻿
-
-namespace CvBuilder.Core.IoC
+﻿namespace CvBuilder.Core.IoC
 {
     public static class DependencyInjection
     {
@@ -43,7 +41,21 @@ namespace CvBuilder.Core.IoC
                 .AddEntityFrameworkStores<DataContext>();
 
 
+            services.AddOutputCache();
+
+            services.AddHttpContextAccessor();
+
             return services;
+        }
+
+
+        public static IApplicationBuilder AddCvBuilderCoreApp(this IApplicationBuilder app)
+        {
+            app.UseMiddleware<ExceptionMiddleware>();
+            app.UseOutputCache();
+
+
+            return app;
         }
 
     }

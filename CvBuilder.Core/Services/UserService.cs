@@ -1,4 +1,4 @@
-﻿
+﻿using CvBuilder.Core.Wrappers;
 
 namespace CvBuilder.Core.Services
 {
@@ -30,23 +30,11 @@ namespace CvBuilder.Core.Services
         {
             var user = _userManager.FindByEmailAsync(command.Email).Result;
             if (user == null)
-            {
-                return new AuthenticationResult()
-                {
-                    Success = false,
-                    ErrorMessages = new string[] { "User or passwords are incorrect" }
-                };
-            }
+                return AuthenticationResult.Fail("User or passwords are incorrect");
 
             var userHasValidPassword = _userManager.CheckPasswordAsync(user, command.Password).Result;
             if (!userHasValidPassword)
-            {
-                return new AuthenticationResult()
-                {
-                    Success = false,
-                    ErrorMessages = new string[] { "User or passwords are incorrect" }
-                };
-            }
+                return AuthenticationResult.Fail("User or passwords are incorrect");
 
             return _authTokernHelper.GenerateAuthResult(user);
         }
@@ -54,75 +42,62 @@ namespace CvBuilder.Core.Services
 
         public AuthenticationResult RegisterUser(RegisterUserCommand command)
         {
-            var existingUser = _userManager.FindByEmailAsync(command.Email).Result;
-            if (existingUser != null)
-            {
-                return new AuthenticationResult()
-                {
-                    Success = false,
-                    ErrorMessages = new string[] { "The uses already exist" }
-                };
-            }
-
+            var isExistingUser = _userManager.FindByEmailAsync(command.Email).Result;
+            if (isExistingUser != null)
+                return AuthenticationResult.Fail("The uses already exist");
 
             var entity = UserMapper.Map(command);
 
             var createdUser = _userManager.CreateAsync(entity, command.Password).Result;
 
             if (!createdUser.Succeeded)
-            {
-                return new AuthenticationResult
-                {
-                    Success = false,
-                    ErrorMessages = createdUser.Errors.Select(x => x.Description)
-                };
-            }
+                return AuthenticationResult.Fail(string.Join(" | ", createdUser.Errors));
 
             return _authTokernHelper.GenerateAuthResult(entity);
         }
 
 
-        public string AddAboutMeToUser(AddAboutMeToUserCommand command)
+        public ApiResult AddAboutMeToUser(AddAboutMeToUserCommand command)
         {
             var user = _repo.GetUserByUserName(_httpContextAccessor.GetUserNameFromToken());
 
             if (user == default)
-                return "The user does not exist";
+                return ApiResult.Fail("The user does not exist");
 
             var entity = UserMapper.Map(command, user);
 
             _repo.AddAboutMeToUser(entity);
 
-            return "ok";
+            return ApiResult.Success();
         }
 
 
-        public string AddWorkExperienceToUser(AddWorkExperienceToUserCommand command)
+        public ApiResult AddWorkExperienceToUser(AddWorkExperienceToUserCommand command)
         {
             var user = _repo.GetUserByUserName(_httpContextAccessor.GetUserNameFromToken());
 
             if (user == default)
-                return "The user does not exist";
+                return ApiResult.Fail("The user does not exist");
 
             var entity = UserMapper.Map(command, user);
 
             _repo.AddWorkExperienceToUser(entity);
 
-            return "ok";
+            return ApiResult.Success();
         }
 
-        public string AddSkillToUser(AddSkillToUserCommand command)
+        public ApiResult AddSkillToUser(AddSkillToUserCommand command)
         {
             var user = _repo.GetUserByUserName(_httpContextAccessor.GetUserNameFromToken());
 
             if (user == default)
-                return "The user does not exist";
+                return ApiResult.Fail("The user does not exist");
 
             var entity = UserMapper.Map(command, user);
 
             _repo.AddSkillToUser(entity);
 
-            return "ok";
+            return ApiResult.Success();
         }
 
 

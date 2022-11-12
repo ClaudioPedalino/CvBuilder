@@ -1,5 +1,7 @@
 ﻿
 
+using CvBuilder.Core.Wrappers;
+
 namespace CvBuilder.Core.Interfaces.IServices
 {
     public interface IUserService
@@ -9,8 +11,8 @@ namespace CvBuilder.Core.Interfaces.IServices
         AuthenticationResult RegisterUser(RegisterUserCommand command);
         AuthenticationResult LoginUser(LoginUserCommand command);
 
-        string AddAboutMeToUser(AddAboutMeToUserCommand command);
-        string AddWorkExperienceToUser(AddWorkExperienceToUserCommand command);
-        string AddSkillToUser(AddSkillToUserCommand command);
+        ApiResult AddAboutMeToUser(AddAboutMeToUserCommand command);
+        ApiResult AddWorkExperienceToUser(AddWorkExperienceToUserCommand command);
+        ApiResult AddSkillToUser(AddSkillToUserCommand command);
     }
 }

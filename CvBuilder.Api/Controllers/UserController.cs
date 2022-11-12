@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.OutputCaching;
+
 namespace CvBuilder.Api.Controllers
 {
     [ApiController]
@@ -12,15 +14,18 @@ namespace CvBuilder.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetUsers()
+        [OutputCache(Duration = 5)]
+        public async Task<IResult> GetUsers()
         {
             var response = await _service.GetUsers();
-            return Ok(response);
+            return Results.Ok(response);
         }
 
 
         [HttpGet("{id}")]
-        [Authorize]
+        //[Authorize]
+        //[OutputCache(Duration = 10, VaryByRouteValueNames = new string[] { "*" })]
+        //[OutputCache(Duration = 10, VaryByHeaderNames = new string[] { "Authorization" })]
         public IResult GetUserById([FromRoute] Guid id)
         {
             return default;
@@ -32,7 +37,9 @@ namespace CvBuilder.Api.Controllers
         {
             var response = _service.LoginUser(command);
 
-            return Results.Ok(response);
+            return response.IsSuccess
+                ? Results.Ok(response)
+                : Results.BadRequest(response);
         }
 
 
@@ -41,7 +48,9 @@ namespace CvBuilder.Api.Controllers
         {
             var response = _service.RegisterUser(command);
 
-            return Results.Ok(response);
+            return response.IsSuccess
+                ? Results.Ok(response)
+                : Results.BadRequest(response);
         }
 
 
@@ -51,7 +60,9 @@ namespace CvBuilder.Api.Controllers
         {
             var response = _service.AddAboutMeToUser(command);
 
-            return Results.Ok(response);
+            return response.IsSuccess
+                ? Results.Ok(response)
+                : Results.BadRequest(response);
         }
 
 
@@ -61,7 +72,9 @@ namespace CvBuilder.Api.Controllers
         {
             var response = _service.AddWorkExperienceToUser(command);
 
-            return Results.Ok(response);
+            return response.IsSuccess
+                ? Results.Ok(response)
+                : Results.BadRequest(response);
         }
 
 
@@ -71,7 +84,9 @@ namespace CvBuilder.Api.Controllers
         {
             var response = _service.AddSkillToUser(command);
 
-            return Results.Ok(response);
+            return response.IsSuccess
+                ? Results.Ok(response)
+                : Results.BadRequest(response);
         }
     }
 }
