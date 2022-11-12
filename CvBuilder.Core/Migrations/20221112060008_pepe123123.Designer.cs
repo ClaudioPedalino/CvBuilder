@@ -4,6 +4,7 @@ using CvBuilder.Core.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CvBuilder.Core.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20221112060008_pepe123123")]
+    partial class pepe123123
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -43,7 +46,7 @@ namespace CvBuilder.Core.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AboutsMe", (string)null);
+                    b.ToTable("AboutsMe");
                 });
 
             modelBuilder.Entity("CvBuilder.Core.Entities.Skill", b =>
@@ -75,7 +78,7 @@ namespace CvBuilder.Core.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Skills", (string)null);
+                    b.ToTable("Skills");
                 });
 
             modelBuilder.Entity("CvBuilder.Core.Entities.User", b =>
@@ -159,7 +162,7 @@ namespace CvBuilder.Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("CvBuilder.Core.Entities.WorkExperience", b =>
@@ -212,7 +215,7 @@ namespace CvBuilder.Core.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("WorkExperiences", (string)null);
+                    b.ToTable("WorkExperiences");
                 });
 
             modelBuilder.Entity("CvBuilder.Core.Entities.AboutMe", b =>

@@ -2,13 +2,20 @@
 {
     public class Skill
     {
-        public Guid Id { get; set; }
-        public Guid UserId { get; set; }
-        public string Logo { get; set; }
-        public string Title { get; set; }
-        public string ShortDescription { get; set; }
-        public string LongDescription { get; set; }
+        public Skill(Guid userId, string logo, string title, string shortDescription, string longDescription)
+        {
+            UserId = userId;
+            Logo = logo;
+            Title = title;
+            ShortDescription = shortDescription;
+            LongDescription = longDescription;
+        }
 
-        public virtual User User { get; set; }
+        public Guid Id { get; private set; }
+        public Guid UserId { get; private set; }
+        public string Logo { get; private set; }
+        public string Title { get; private set; }
+        public string ShortDescription { get; private set; }
+        public string LongDescription { get; private set; }
     }
 }

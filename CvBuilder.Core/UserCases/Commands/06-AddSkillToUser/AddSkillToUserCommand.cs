@@ -2,7 +2,6 @@
 {
     public class AddSkillToUserCommand
     {
-        public Guid UserId { get; set; }
         public string Logo { get; set; }
         public string Title { get; set; }
         public string ShortDescription { get; set; }

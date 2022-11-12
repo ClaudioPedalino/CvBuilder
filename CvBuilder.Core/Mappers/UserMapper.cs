@@ -62,43 +62,35 @@ namespace CvBuilder.Core.Mappers
 
         public static AboutMe Map(AddAboutMeToUserCommand command, User user)
         {
-            return new AboutMe()
-            {
-                UserId = user.Id,
-                Title = command.Title,
-                Description = command.Description
-            };
+            return new AboutMe(userId: user.Id,
+                               title: command.Title,
+                               description: command.Description);
         }
 
 
         public static WorkExperience Map(AddWorkExperienceToUserCommand command, User user)
         {
-            return new WorkExperience()
-            {
-                UserId = user.Id,
-                CompanyName = command.CompanyName,
-                CompanyCountry = command.CompanyCountry,
-                CompanyLogo = command.CompanyLogo,
-                IsCurrentPosition = command.IsCurrentPosition,
-                From = command.From,
-                To = command.To,
-                Role = command.Role,
-                Stack = command.Stack,
-                BusinessSector = command.BusinessSector,
-                Description = command.Description,
-            };
+            return new WorkExperience(
+                userId: user.Id,
+                companyName: command.CompanyName,
+                companyCountry: command.CompanyCountry,
+                companyLogo: command.CompanyLogo,
+                isCurrentPosition: command.IsCurrentPosition ?? false,
+                from: command.From,
+                to: command.To,
+                role: command.Role,
+                stack: command.Stack,
+                businessSector: command.BusinessSector,
+                description: command.Description);
         }
 
         public static Skill Map(AddSkillToUserCommand command, User user)
         {
-            return new Skill()
-            {
-                UserId = user.Id,
-                Logo = command.Logo,
-                Title = command.Title,
-                ShortDescription = command.ShortDescription,
-                LongDescription = command.LongDescription
-            };
+            return new Skill(userId: user.Id,
+                             logo: command.Logo,
+                             title: command.Title,
+                             shortDescription: command.ShortDescription,
+                             longDescription: command.LongDescription);
         }
     }
 }

@@ -2,11 +2,16 @@
 {
     public class AboutMe
     {
-        public Guid Id { get; set; }
-        public Guid UserId { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
+        public AboutMe(Guid userId, string title, string description)
+        {
+            UserId = userId;
+            Title = title;
+            Description = description;
+        }
 
-        public virtual User User { get; set; }
+        public Guid Id { get; private set; }
+        public Guid UserId { get; private set; }
+        public string Title { get; private set; }
+        public string Description { get; private set; }
     }
 }

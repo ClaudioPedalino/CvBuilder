@@ -2,19 +2,33 @@
 {
     public class WorkExperience
     {
-        public Guid Id { get; set; }
-        public Guid UserId { get; set; }
-        public string CompanyName { get; set; }
-        public string CompanyCountry { get; set; }
-        public string CompanyLogo { get; set; }
-        public string IsCurrentPosition { get; set; }
-        public DateOnly From { get; set; }
-        public DateOnly? To { get; set; }
-        public string Role { get; set; }
-        public string Stack { get; set; }
-        public string BusinessSector { get; set; }
-        public string Description { get; set; }
+        public WorkExperience(Guid userId, string companyName, string companyCountry, string companyLogo, bool isCurrentPosition, DateOnly from, DateOnly? to, string role, string stack, string businessSector, string description)
+        {
+            UserId = userId;
+            CompanyName = companyName;
+            CompanyCountry = companyCountry;
+            CompanyLogo = companyLogo;
+            IsCurrentPosition = isCurrentPosition;
+            From = from;
+            To = to;
+            Role = role;
+            Stack = stack;
+            BusinessSector = businessSector;
+            Description = description;
+        }
 
-        public virtual User User { get; set; }
+
+        public Guid Id { get; private set; }
+        public Guid UserId { get; private set; }
+        public string CompanyName { get; private set; }
+        public string CompanyCountry { get; private set; }
+        public string CompanyLogo { get; private set; }
+        public bool IsCurrentPosition { get; private set; }
+        public DateOnly From { get; private set; }
+        public DateOnly? To { get; private set; }
+        public string Role { get; private set; }
+        public string Stack { get; private set; }
+        public string BusinessSector { get; private set; }
+        public string Description { get; private set; }
     }
 }

@@ -30,7 +30,7 @@
         public string CompanyName { get; set; }
         public string CompanyCountry { get; set; }
         public string CompanyLogo { get; set; }
-        public string IsCurrentPosition { get; set; }
+        public bool IsCurrentPosition { get; set; }
         public DateOnly From { get; set; }
         public DateOnly? To { get; set; }
         public string Role { get; set; }
