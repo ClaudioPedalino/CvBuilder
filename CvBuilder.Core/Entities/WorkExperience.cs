@@ -1,10 +1,11 @@
-﻿namespace CvBuilder.Core.Entities
+﻿using CvBuilder.Core.Interfaces;
+
+namespace CvBuilder.Core.Entities
 {
-    public class WorkExperience
+    public class WorkExperience : IByUser, IAuditCreation
     {
-        public WorkExperience(Guid userId, string companyName, string companyCountry, string companyLogo, bool isCurrentPosition, DateOnly from, DateOnly? to, string role, string stack, string businessSector, string description)
+        public WorkExperience(string companyName, string companyCountry, string companyLogo, bool isCurrentPosition, DateOnly from, DateOnly? to, string role, string stack, string businessSector, string description)
         {
-            UserId = userId;
             CompanyName = companyName;
             CompanyCountry = companyCountry;
             CompanyLogo = companyLogo;
@@ -19,7 +20,7 @@
 
 
         public Guid Id { get; private set; }
-        public Guid UserId { get; private set; }
+        public Guid UserId { get; set; }
         public string CompanyName { get; private set; }
         public string CompanyCountry { get; private set; }
         public string CompanyLogo { get; private set; }
@@ -30,5 +31,6 @@
         public string Stack { get; private set; }
         public string BusinessSector { get; private set; }
         public string Description { get; private set; }
+        public DateTime CreatedAt { get; set; }
     }
 }

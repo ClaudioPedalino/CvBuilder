@@ -32,28 +32,6 @@ namespace CvBuilder.Api.Controllers
         }
 
 
-        [HttpPost("login")]
-        public IResult LoginUser([FromBody] LoginUserCommand command)
-        {
-            var response = _service.LoginUser(command);
-
-            return response.IsSuccess
-                ? Results.Ok(response)
-                : Results.BadRequest(response);
-        }
-
-
-        [HttpPost("register")]
-        public IResult RegisterUser([FromBody] RegisterUserCommand command)
-        {
-            var response = _service.RegisterUser(command);
-
-            return response.IsSuccess
-                ? Results.Ok(response)
-                : Results.BadRequest(response);
-        }
-
-
         [HttpPost("add-about-me")]
         [Authorize]
         public IResult AddAboutMeToUser([FromBody] AddAboutMeToUserCommand command)

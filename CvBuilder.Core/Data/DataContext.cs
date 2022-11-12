@@ -1,11 +1,15 @@
-﻿
+﻿using CvBuilder.Core.CustomImplementations;
 
 namespace CvBuilder.Core.Data
 {
     public class DataContext : DbContext
     {
-        //public DataContext() { }
-        public DataContext(DbContextOptions<DataContext> options) : base(options) { }
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public DataContext(DbContextOptions<DataContext> options, IHttpContextAccessor httpContextAccessor) : base(options)
+        {
+            _httpContextAccessor = httpContextAccessor;
+        }
 
 
         public DbSet<User> Users { get; set; }
@@ -14,32 +18,37 @@ namespace CvBuilder.Core.Data
         public DbSet<WorkExperience> WorkExperiences { get; set; }
 
 
-
-        //protected override void OnConfiguring(DbContextOptionsBuilder options)
-        //{
-        //    if (!options.IsConfigured)
-        //    {
-        //        options.UseSqlServer("Server=localhost;Database=CvBuilder2;User Id=sa;Password=Temporal1;TrustServerCertificate=True;");
-        //    }
-        //}
-
-
         protected override void ConfigureConventions(ModelConfigurationBuilder builder)
         {
             builder.Properties<DateOnly>()
                 .HaveConversion<DateOnlyConverter>()
                 .HaveColumnType("date");
         }
-    }
 
-    public class DateOnlyConverter : ValueConverter<DateOnly, DateTime>
-    {
-        /// <summary>
-        /// Creates a new instance of this converter.
-        /// </summary>
-        public DateOnlyConverter() : base(
-                d => d.ToDateTime(TimeOnly.MinValue),
-                d => DateOnly.FromDateTime(d))
-        { }
+        public override int SaveChanges()
+        {
+            var userName = _httpContextAccessor.GetUserNameFromToken();
+
+            var user = Users.FirstOrDefault(x => x.UserName == userName);
+
+            foreach (var entityEntry in ChangeTracker.Entries())
+            {
+                if (entityEntry.IsByUser())
+                {
+                    if (entityEntry.IsNew())
+                    {
+                        entityEntry.SetTenant(user.Id);
+                        entityEntry.SetCreatedDate();
+                    }
+                    //else if (entityEntry.IsUpdate())
+                    //{
+                    //    // entityEntry.SetTenant(TenantId); Ver si es necesario
+                    //    entityEntry.SetUpdateDate();
+                    //}
+                }
+            }
+
+            return base.SaveChanges();
+        }
     }
 }

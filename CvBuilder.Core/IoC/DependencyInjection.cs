@@ -7,9 +7,14 @@
             services.AddDbContext<DataContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("CvBuilderDB")));
 
+
             services.AddTransient<IUserRepository, UserRepository>();
+
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IAccountService, AccountService>();
+
             services.AddTransient<IAuthTokernHelper, AuthTokernHelper>();
+
 
             var jwtSettings = new JwtSettings();
             configuration.Bind(nameof(jwtSettings), jwtSettings);

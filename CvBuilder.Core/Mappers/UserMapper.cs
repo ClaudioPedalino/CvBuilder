@@ -60,18 +60,17 @@ namespace CvBuilder.Core.Mappers
         }
 
 
-        public static AboutMe Map(AddAboutMeToUserCommand command, User user)
+        public static AboutMe Map(AddAboutMeToUserCommand command)
         {
-            return new AboutMe(userId: user.Id,
-                               title: command.Title,
-                               description: command.Description);
+            return new AboutMe(
+                title: command.Title,
+                description: command.Description);
         }
 
 
         public static WorkExperience Map(AddWorkExperienceToUserCommand command, User user)
         {
             return new WorkExperience(
-                userId: user.Id,
                 companyName: command.CompanyName,
                 companyCountry: command.CompanyCountry,
                 companyLogo: command.CompanyLogo,
@@ -86,11 +85,11 @@ namespace CvBuilder.Core.Mappers
 
         public static Skill Map(AddSkillToUserCommand command, User user)
         {
-            return new Skill(userId: user.Id,
-                             logo: command.Logo,
-                             title: command.Title,
-                             shortDescription: command.ShortDescription,
-                             longDescription: command.LongDescription);
+            return new Skill(
+                logo: command.Logo,
+                title: command.Title,
+                shortDescription: command.ShortDescription,
+                longDescription: command.LongDescription);
         }
     }
 }

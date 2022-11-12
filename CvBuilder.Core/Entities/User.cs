@@ -1,8 +1,8 @@
-﻿
+﻿using CvBuilder.Core.Interfaces;
 
 namespace CvBuilder.Core.Entities
 {
-    public class User : IdentityUser
+    public class User : IdentityUser, IAuditCreation
     {
         public User(string firstName,
                     string lastName,
@@ -30,6 +30,7 @@ namespace CvBuilder.Core.Entities
 
 
         public Guid Id { get; private set; }
+        //public string PhotoUrl { get; private set; }
         public string FirstName { get; private set; }
         public string LastName { get; private set; }
         public int Age { get; private set; }
@@ -42,5 +43,6 @@ namespace CvBuilder.Core.Entities
         public List<AboutMe> AboutMe { get; private set; }
         public List<WorkExperience> WorkExperiences { get; private set; }
         public List<Skill> Skills { get; private set; }
+        public DateTime CreatedAt { get; set; }
     }
 }
