@@ -1,12 +1,3 @@
-using CvBuilder.Core.Interfaces.IServices;
-using CvBuilder.Core.UserCases.Commands.AddAboutMeToUser;
-using CvBuilder.Core.UserCases.Commands.AddSkillToUser;
-using CvBuilder.Core.UserCases.Commands.AddWorkExperienceToUser;
-using CvBuilder.Core.UserCases.Commands.CreateUser;
-using CvBuilder.Core.UserCases.Commands.LoginUser;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-
 namespace CvBuilder.Api.Controllers
 {
     [ApiController]
@@ -29,6 +20,7 @@ namespace CvBuilder.Api.Controllers
 
 
         [HttpGet("{id}")]
+        [Authorize]
         public IResult GetUserById([FromRoute] Guid id)
         {
             return default;

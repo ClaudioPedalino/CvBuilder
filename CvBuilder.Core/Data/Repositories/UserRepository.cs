@@ -1,8 +1,4 @@
-﻿using CvBuilder.Core.Entities;
-using CvBuilder.Core.Interfaces.IRepositories;
-using Microsoft.EntityFrameworkCore;
-
-namespace CvBuilder.Core.Data.Repositories
+﻿namespace CvBuilder.Core.Data.Repositories
 {
     public class UserRepository : IUserRepository
     {

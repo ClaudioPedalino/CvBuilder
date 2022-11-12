@@ -1,10 +1,4 @@
-﻿using CvBuilder.Core.Entities;
-using CvBuilder.Core.UserCases.Commands.AddAboutMeToUser;
-using CvBuilder.Core.UserCases.Commands.AddSkillToUser;
-using CvBuilder.Core.UserCases.Commands.AddWorkExperienceToUser;
-using CvBuilder.Core.UserCases.Commands.CreateUser;
-using CvBuilder.Core.UserCases.Queries.GetUsers;
-
+﻿
 namespace CvBuilder.Core.Mappers
 {
     public class UserMapper

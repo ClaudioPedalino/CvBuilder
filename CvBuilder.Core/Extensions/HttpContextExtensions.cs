@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using System.IdentityModel.Tokens.Jwt;
-
+﻿
 namespace CvBuilder.Core.Extensions
 {
     public static class HttpContextExtensions

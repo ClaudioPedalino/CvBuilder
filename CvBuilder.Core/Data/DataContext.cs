@@ -1,6 +1,4 @@
-﻿using CvBuilder.Core.Entities;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+﻿
 
 namespace CvBuilder.Core.Data
 {

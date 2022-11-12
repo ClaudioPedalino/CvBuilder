@@ -1,17 +1,4 @@
-﻿using CvBuilder.Core.Entities;
-using CvBuilder.Core.Extensions;
-using CvBuilder.Core.Identity;
-using CvBuilder.Core.Interfaces.IRepositories;
-using CvBuilder.Core.Interfaces.IServices;
-using CvBuilder.Core.Mappers;
-using CvBuilder.Core.UserCases.Commands.AddAboutMeToUser;
-using CvBuilder.Core.UserCases.Commands.AddSkillToUser;
-using CvBuilder.Core.UserCases.Commands.AddWorkExperienceToUser;
-using CvBuilder.Core.UserCases.Commands.CreateUser;
-using CvBuilder.Core.UserCases.Commands.LoginUser;
-using CvBuilder.Core.UserCases.Queries.GetUsers;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
+﻿
 
 namespace CvBuilder.Core.Services
 {

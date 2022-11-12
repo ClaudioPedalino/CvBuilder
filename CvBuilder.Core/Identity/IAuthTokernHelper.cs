@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-
-namespace CvBuilder.Core.Identity
+﻿namespace CvBuilder.Core.Identity
 {
     public interface IAuthTokernHelper
     {

@@ -1,4 +1,4 @@
-﻿using CvBuilder.Core.Entities;
+﻿
 
 namespace CvBuilder.Core.Interfaces.IRepositories
 {
