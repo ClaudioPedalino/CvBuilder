@@ -52,7 +52,7 @@ namespace CvBuilder.Core.Mappers
         }
 
 
-        public static User Map(CreateUserCommand input)
+        public static User Map(RegisterUserCommand input)
         {
             return new User(
                 firstName: input.FirstName,

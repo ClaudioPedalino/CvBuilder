@@ -3,6 +3,7 @@ using CvBuilder.Core.UserCases.Commands.AddAboutMeToUser;
 using CvBuilder.Core.UserCases.Commands.AddSkillToUser;
 using CvBuilder.Core.UserCases.Commands.AddWorkExperienceToUser;
 using CvBuilder.Core.UserCases.Commands.CreateUser;
+using CvBuilder.Core.UserCases.Commands.LoginUser;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,6 +26,7 @@ namespace CvBuilder.Api.Controllers
             return Results.Ok(_service.GetUsers());
         }
 
+
         [HttpGet("{id}")]
         public IResult GetUserById([FromRoute] Guid id)
         {
@@ -32,8 +34,17 @@ namespace CvBuilder.Api.Controllers
         }
 
 
-        [HttpPost("create")]
-        public IResult CreateUser([FromBody] CreateUserCommand command)
+        [HttpPost("login")]
+        public IResult LoginUser([FromBody] LoginUserCommand command)
+        {
+            var response = _service.LoginUser(command);
+
+            return Results.Ok(response);
+        }
+
+
+        [HttpPost("register")]
+        public IResult RegisterUser([FromBody] RegisterUserCommand command)
         {
             var response = _service.RegisterUser(command);
 

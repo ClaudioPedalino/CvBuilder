@@ -8,10 +8,10 @@ using CvBuilder.Core.UserCases.Commands.AddAboutMeToUser;
 using CvBuilder.Core.UserCases.Commands.AddSkillToUser;
 using CvBuilder.Core.UserCases.Commands.AddWorkExperienceToUser;
 using CvBuilder.Core.UserCases.Commands.CreateUser;
+using CvBuilder.Core.UserCases.Commands.LoginUser;
 using CvBuilder.Core.UserCases.Queries.GetUsers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
 
 namespace CvBuilder.Core.Services
 {
@@ -39,7 +39,33 @@ namespace CvBuilder.Core.Services
         }
 
 
-        public AuthenticationResult RegisterUser(CreateUserCommand command)
+        public AuthenticationResult LoginUser(LoginUserCommand command)
+        {
+            var user = _userManager.FindByEmailAsync(command.Email).Result;
+            if (user == null)
+            {
+                return new AuthenticationResult()
+                {
+                    Success = false,
+                    ErrorMessages = new string[] { "User or passwords are incorrect" }
+                };
+            }
+
+            var userHasValidPassword = _userManager.CheckPasswordAsync(user, command.Password).Result;
+            if (!userHasValidPassword)
+            {
+                return new AuthenticationResult()
+                {
+                    Success = false,
+                    ErrorMessages = new string[] { "User or passwords are incorrect" }
+                };
+            }
+
+            return _authTokernHelper.GenerateAuthResult(user);
+        }
+
+
+        public AuthenticationResult RegisterUser(RegisterUserCommand command)
         {
             var existingUser = _userManager.FindByEmailAsync(command.Email).Result;
             if (existingUser != null)
@@ -111,5 +137,7 @@ namespace CvBuilder.Core.Services
 
             return "ok";
         }
+
+
     }
 }
