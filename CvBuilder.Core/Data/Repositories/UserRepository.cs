@@ -13,13 +13,13 @@ namespace CvBuilder.Core.Data.Repositories
             _dataContext = dataContext;
         }
 
-        public List<User> GetUsers()
+        public async Task<List<User>> GetUsers()
         {
-            return _dataContext.Users
+            return await _dataContext.Users
                 .Include(x => x.AboutMe)
                 .Include(x => x.WorkExperiences)
                 .Include(x => x.Skills)
-                .ToList();
+                .ToListAsync();
         }
 
         public User GetUserById(Guid id)

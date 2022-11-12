@@ -10,7 +10,7 @@ namespace CvBuilder.Core.Interfaces.IServices
 {
     public interface IUserService
     {
-        List<GetUserResponse> GetUsers();
+        Task<List<GetUserResponse>> GetUsers();
 
         AuthenticationResult RegisterUser(RegisterUserCommand command);
         AuthenticationResult LoginUser(LoginUserCommand command);

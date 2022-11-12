@@ -17,7 +17,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\CvBuilder.Core\CvBuilder.Core.csproj" />
+		<ProjectReference Include="..\CvBuilder.Core\CvBuilder.Core.csproj" />
 	</ItemGroup>
 
 </Project>

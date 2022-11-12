@@ -4,9 +4,12 @@ using CvBuilder.Core.Entities;
 using CvBuilder.Core.Identity;
 using CvBuilder.Core.Interfaces.IRepositories;
 using CvBuilder.Core.Interfaces.IServices;
+using CvBuilder.Core.IoC;
+using CvBuilder.Core.Middlewares;
 using CvBuilder.Core.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -20,14 +23,20 @@ builder.Services.AddControllers()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AppPolicy",
+        policy =>
+        {
+            policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+        });
+});
 ///
 builder.Services.AddDbContext<DataContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("CvBuilderDB")));
 
 
-builder.Services.AddTransient<IUserRepository, UserRepository>();
-builder.Services.AddTransient<IUserService, UserService>();
-builder.Services.AddTransient<IAuthTokernHelper, AuthTokernHelper>();
+builder.Services.AddCvBuilderCore();
 
 
 var jwtSettings = new JwtSettings();
@@ -64,10 +73,13 @@ builder.Services.AddHttpContextAccessor();
 ///
 var app = builder.Build();
 
+app.UseMiddleware<ExceptionMiddleware>();
+
 app.UseSwagger();
 app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
+app.UseCors("AppPolicy");
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();

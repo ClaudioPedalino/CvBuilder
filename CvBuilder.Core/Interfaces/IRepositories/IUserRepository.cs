@@ -4,7 +4,7 @@ namespace CvBuilder.Core.Interfaces.IRepositories
 {
     public interface IUserRepository
     {
-        List<User> GetUsers();
+        Task<List<User>> GetUsers();
         User GetUserById(Guid id);
         User GetUserByUserName(string email);
 

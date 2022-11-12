@@ -31,9 +31,9 @@ namespace CvBuilder.Core.Services
         }
 
 
-        public List<GetUserResponse> GetUsers()
+        public async Task<List<GetUserResponse>> GetUsers()
         {
-            var result = _repo.GetUsers();
+            var result = await _repo.GetUsers();
 
             return UserMapper.Map(result);
         }

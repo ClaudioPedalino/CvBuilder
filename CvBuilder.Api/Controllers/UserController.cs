@@ -21,9 +21,10 @@ namespace CvBuilder.Api.Controllers
         }
 
         [HttpGet]
-        public IResult GetUsers()
+        public async Task<IActionResult> GetUsers()
         {
-            return Results.Ok(_service.GetUsers());
+            var response = await _service.GetUsers();
+            return Ok(response);
         }
 
 
