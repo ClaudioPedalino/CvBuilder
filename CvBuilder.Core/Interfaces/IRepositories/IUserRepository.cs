@@ -5,12 +5,12 @@ namespace CvBuilder.Core.Interfaces.IRepositories
     public interface IUserRepository
     {
         Task<List<User>> GetUsers();
-        User GetUserById(Guid id);
-        User GetUserByUserName(string email);
+        Task<User> GetUserById(Guid id);
+        Task<User> GetUserByUserName(string email);
 
-        void CreateUser(User entity);
-        void AddAboutMeToUser(AboutMe entity);
-        void AddWorkExperienceToUser(WorkExperience entity);
-        void AddSkillToUser(Skill entity);
+        Task CreateUser(User entity);
+        Task AddAboutMeToUser(AboutMe entity);
+        Task AddWorkExperienceToUser(WorkExperience entity);
+        Task AddSkillToUser(Skill entity);
     }
 }

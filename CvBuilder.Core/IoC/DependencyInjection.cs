@@ -1,11 +1,17 @@
-﻿namespace CvBuilder.Core.IoC
+﻿using Microsoft.Identity.Client;
+
+namespace CvBuilder.Core.IoC
 {
     public static class DependencyInjection
     {
         public static IServiceCollection AddCvBuilderCore(this IServiceCollection services, ConfigurationManager configuration)
         {
             services.AddDbContext<DataContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("CvBuilderDB")));
+            {
+                options.EnableSensitiveDataLogging();
+                options.EnableDetailedErrors();
+                options.UseSqlServer(configuration.GetConnectionString("CvBuilderDB"));
+            });
 
 
             services.AddTransient<IUserRepository, UserRepository>();
@@ -15,36 +21,9 @@
 
             services.AddTransient<IAuthTokernHelper, AuthTokernHelper>();
 
+            //services.AddHealthCheck(configuration);
 
-            var jwtSettings = new JwtSettings();
-            configuration.Bind(nameof(jwtSettings), jwtSettings);
-            services.AddSingleton(jwtSettings);
-
-            services
-                .AddAuthorization()
-                .AddAuthentication(x =>
-                {
-                    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                    x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-                    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                })
-                .AddJwtBearer(x =>
-                {
-                    x.SaveToken = true;
-                    x.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtSettings.Secret)),
-                        ValidateIssuer = false,
-                        ValidateAudience = false,
-                        RequireExpirationTime = false,
-                        ValidateLifetime = true
-                    };
-                });
-
-            services.AddDefaultIdentity<User>()
-                .AddEntityFrameworkStores<DataContext>();
-
+            services.AddIdentity(configuration);
 
             services.AddOutputCache();
 
@@ -54,11 +33,14 @@
         }
 
 
-        public static IApplicationBuilder AddCvBuilderCoreApp(this IApplicationBuilder app)
+
+
+        public static IApplicationBuilder AddCvBuilderCoreApp(this IApplicationBuilder app, ConfigurationManager configuration)
         {
             app.UseMiddleware<ExceptionMiddleware>();
             app.UseOutputCache();
 
+            //app.UseHealthCheck(configuration);
 
             return app;
         }

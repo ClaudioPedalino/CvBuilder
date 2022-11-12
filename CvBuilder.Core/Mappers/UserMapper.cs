@@ -68,7 +68,7 @@ namespace CvBuilder.Core.Mappers
         }
 
 
-        public static WorkExperience Map(AddWorkExperienceToUserCommand command, User user)
+        public static WorkExperience Map(AddWorkExperienceToUserCommand command)
         {
             return new WorkExperience(
                 companyName: command.CompanyName,
@@ -83,7 +83,7 @@ namespace CvBuilder.Core.Mappers
                 description: command.Description);
         }
 
-        public static Skill Map(AddSkillToUserCommand command, User user)
+        public static Skill Map(AddSkillToUserCommand command)
         {
             return new Skill(
                 logo: command.Logo,

@@ -8,10 +8,9 @@ namespace CvBuilder.Core.Interfaces.IServices
     {
         Task<List<GetUserResponse>> GetUsers();
 
-        
 
-        ApiResult AddAboutMeToUser(AddAboutMeToUserCommand command);
-        ApiResult AddWorkExperienceToUser(AddWorkExperienceToUserCommand command);
-        ApiResult AddSkillToUser(AddSkillToUserCommand command);
+        Task<ApiResult> AddAboutMeToUser(AddAboutMeToUserCommand command);
+        Task<ApiResult> AddWorkExperienceToUser(AddWorkExperienceToUserCommand command);
+        Task<ApiResult> AddSkillToUser(AddSkillToUserCommand command);
     }
 }

@@ -36,7 +36,7 @@ namespace CvBuilder.Api.Controllers
         [Authorize]
         public async Task<IResult> AddAboutMeToUser([FromBody] AddAboutMeToUserCommand command)
         {
-            var response = _service.AddAboutMeToUser(command);
+            var response = await _service.AddAboutMeToUser(command);
 
             return response.IsSuccess
                 ? Results.Ok(response)
@@ -46,9 +46,9 @@ namespace CvBuilder.Api.Controllers
 
         [HttpPost("add-work-experience")]
         [Authorize]
-        public IResult AddWorkExperienceToUser([FromBody] AddWorkExperienceToUserCommand command)
+        public async Task<IResult> AddWorkExperienceToUser([FromBody] AddWorkExperienceToUserCommand command)
         {
-            var response = _service.AddWorkExperienceToUser(command);
+            var response = await _service.AddWorkExperienceToUser(command);
 
             return response.IsSuccess
                 ? Results.Ok(response)
@@ -58,9 +58,9 @@ namespace CvBuilder.Api.Controllers
 
         [HttpPost("add-skill")]
         [Authorize]
-        public IResult AddSkillToUser([FromBody] AddSkillToUserCommand command)
+        public async Task<IResult> AddSkillToUser([FromBody] AddSkillToUserCommand command)
         {
-            var response = _service.AddSkillToUser(command);
+            var response = await _service.AddSkillToUser(command);
 
             return response.IsSuccess
                 ? Results.Ok(response)

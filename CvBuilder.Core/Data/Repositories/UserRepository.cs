@@ -18,38 +18,38 @@
                 .ToListAsync();
         }
 
-        public User GetUserById(Guid id)
+        public async Task<User> GetUserById(Guid id)
         {
-            return _dataContext.Users.FirstOrDefault(x => x.Id == id);
+            return await _dataContext.Users.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public User GetUserByUserName(string email)
+        public async Task<User> GetUserByUserName(string email)
         {
-            return _dataContext.Users.FirstOrDefault(x => x.UserName == email);
+            return await _dataContext.Users.FirstOrDefaultAsync(x => x.UserName == email);
         }
 
-        public void CreateUser(User entity)
+        public async Task CreateUser(User entity)
         {
-            _dataContext.Users.Add(entity);
-            _dataContext.SaveChanges();
+            await _dataContext.Users.AddAsync(entity);
+            await _dataContext.SaveChangesAsync();
         }
 
-        public void AddAboutMeToUser(AboutMe entity)
+        public async Task AddAboutMeToUser(AboutMe entity)
         {
-            _dataContext.AboutsMe.Add(entity);
-            _dataContext.SaveChanges();
+            await _dataContext.AboutsMe.AddAsync(entity);
+            await _dataContext.SaveChangesAsync();
         }
 
-        public void AddWorkExperienceToUser(WorkExperience entity)
+        public async Task AddWorkExperienceToUser(WorkExperience entity)
         {
-            _dataContext.WorkExperiences.Add(entity);
-            _dataContext.SaveChanges();
+            await _dataContext.WorkExperiences.AddAsync(entity);
+            await _dataContext.SaveChangesAsync();
         }
 
-        public void AddSkillToUser(Skill entity)
+        public async Task AddSkillToUser(Skill entity)
         {
-            _dataContext.Skills.Add(entity);
-            _dataContext.SaveChanges();
+            await _dataContext.Skills.AddAsync(entity);
+            await _dataContext.SaveChangesAsync();
         }
     }
 }

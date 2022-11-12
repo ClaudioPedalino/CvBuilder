@@ -9,7 +9,7 @@
             _jwtSettings = jwtSettings;
         }
 
-        public AuthenticationResult GenerateAuthResult(IdentityUser newUser) // TODO: Esto se puede llevar a un servicio aparte para que la clase quede más chica
+        public AuthenticationResult GenerateAuthResult(IdentityUser newUser)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_jwtSettings.Secret);

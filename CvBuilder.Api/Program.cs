@@ -5,7 +5,6 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
 
         builder.Services.AddControllers().AddNewtonsoftJson(options =>
-
             options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
         builder.Services.AddEndpointsApiExplorer();
@@ -19,7 +18,7 @@ public class Program
 
         var app = builder.Build();
 
-        app.AddCvBuilderCoreApp(); //*
+        app.AddCvBuilderCoreApp(builder.Configuration); //*
         app.UseSwagger();
         app.UseSwaggerUI();
         app.UseHttpsRedirection();

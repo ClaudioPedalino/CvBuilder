@@ -5,12 +5,10 @@ namespace CvBuilder.Core.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _repo;
-        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public UserService(IUserRepository repo, IHttpContextAccessor httpContextAccessor)
+        public UserService(IUserRepository repo)
         {
             _repo = repo;
-            _httpContextAccessor = httpContextAccessor;
         }
 
 
@@ -22,7 +20,7 @@ namespace CvBuilder.Core.Services
         }
 
 
-        public ApiResult AddAboutMeToUser(AddAboutMeToUserCommand command)
+        public async Task<ApiResult> AddAboutMeToUser(AddAboutMeToUserCommand command)
         {
             //var user = _repo.GetUserByUserName(_httpContextAccessor.GetUserNameFromToken());
 
@@ -31,36 +29,37 @@ namespace CvBuilder.Core.Services
 
             var entity = UserMapper.Map(command);
 
-            _repo.AddAboutMeToUser(entity);
+            await _repo.AddAboutMeToUser(entity);
 
             return ApiResult.Success();
         }
 
 
-        public ApiResult AddWorkExperienceToUser(AddWorkExperienceToUserCommand command)
+        public async Task<ApiResult> AddWorkExperienceToUser(AddWorkExperienceToUserCommand command)
         {
-            var user = _repo.GetUserByUserName(_httpContextAccessor.GetUserNameFromToken());
+            //var user = _repo.GetUserByUserName(_httpContextAccessor.GetUserNameFromToken());
 
-            if (user == default)
-                return ApiResult.Fail("The user does not exist");
+            //if (user == default)
+            //    return ApiResult.Fail("The user does not exist");
 
-            var entity = UserMapper.Map(command, user);
+            var entity = UserMapper.Map(command);
 
-            _repo.AddWorkExperienceToUser(entity);
+            await _repo.AddWorkExperienceToUser(entity);
 
             return ApiResult.Success();
         }
 
-        public ApiResult AddSkillToUser(AddSkillToUserCommand command)
+
+        public async Task<ApiResult> AddSkillToUser(AddSkillToUserCommand command)
         {
-            var user = _repo.GetUserByUserName(_httpContextAccessor.GetUserNameFromToken());
+            //var user = _repo.GetUserByUserName(_httpContextAccessor.GetUserNameFromToken());
 
-            if (user == default)
-                return ApiResult.Fail("The user does not exist");
+            //if (user == default)
+            //    return ApiResult.Fail("The user does not exist");
 
-            var entity = UserMapper.Map(command, user);
+            var entity = UserMapper.Map(command);
 
-            _repo.AddSkillToUser(entity);
+            await _repo.AddSkillToUser(entity);
 
             return ApiResult.Success();
         }
