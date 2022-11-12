@@ -21,7 +21,7 @@ namespace CvBuilder.Core.Entities
             Linkedin = linkedin;
             Location = location;
             Github = github;
-            
+
             UserName = email;
             Active = true;
             WorkExperiences = new List<WorkExperience>();
