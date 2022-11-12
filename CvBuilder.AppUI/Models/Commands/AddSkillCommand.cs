@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CvBuilder.AppUI.Models.Commands
+﻿namespace CvBuilder.AppUI.Models.Commands
 {
     public class AddSkillCommand
     {

@@ -47,7 +47,7 @@ namespace CvBuilder.AppUI.Clients
         public async Task<AuthenticationResult> Login(LoginQuery request)
         {
             var result = new AuthenticationResult();
-            
+
             //var response = await _httpClient.PostAsJsonAsync(new Uri($"{BASE_URL}/user/login"), request);
             var response = await _httpClient.PostAsync(new Uri($"{BASE_URL}/user/login"), JsonContent.Create(request));
 
