@@ -34,7 +34,7 @@ namespace CvBuilder.Api.Controllers
 
         [HttpPost("add-about-me")]
         [Authorize]
-        public IResult AddAboutMeToUser([FromBody] AddAboutMeToUserCommand command)
+        public async Task<IResult> AddAboutMeToUser([FromBody] AddAboutMeToUserCommand command)
         {
             var response = _service.AddAboutMeToUser(command);
 

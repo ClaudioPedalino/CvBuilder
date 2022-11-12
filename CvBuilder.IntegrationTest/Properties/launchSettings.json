@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "CvBuilder.IntegrationTest": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:16152;http://localhost:16153"
+    }
+  }
+}
