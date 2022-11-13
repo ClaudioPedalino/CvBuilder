@@ -10,7 +10,7 @@ namespace CvBuilder.Core.Mappers
                 Id = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                Age = user.Age,
+                Age = user.Age ?? default,
                 CurrentPosition = user.CurrentPosition,
                 Email = user.Email,
                 Linkedin = user.Linkedin,

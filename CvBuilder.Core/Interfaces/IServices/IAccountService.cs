@@ -2,7 +2,7 @@
 {
     public interface IAccountService
     {
-        AuthenticationResult RegisterUser(RegisterUserCommand command);
-        AuthenticationResult LoginUser(LoginUserCommand command);
+        Task<AuthenticationResult> RegisterUser(RegisterUserCommand command);
+        Task<AuthenticationResult> LoginUser(LoginUserCommand command);
     }
 }

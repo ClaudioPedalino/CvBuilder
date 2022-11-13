@@ -16,9 +16,9 @@ namespace CvBuilder.Api.Controllers
 
 
         [HttpPost("login")]
-        public IResult LoginUser([FromBody] LoginUserCommand command)
+        public async Task<IResult> LoginUser([FromBody] LoginUserCommand command)
         {
-            var response = _service.LoginUser(command);
+            var response = await _service.LoginUser(command);
 
             return response.IsSuccess
                 ? Results.Ok(response)
@@ -27,9 +27,9 @@ namespace CvBuilder.Api.Controllers
 
 
         [HttpPost("register")]
-        public IResult RegisterUser([FromBody] RegisterUserCommand command)
+        public async Task<IResult> RegisterUser([FromBody] RegisterUserCommand command)
         {
-            var response = _service.RegisterUser(command);
+            var response = await _service.RegisterUser(command);
 
             return response.IsSuccess
                 ? Results.Ok(response)

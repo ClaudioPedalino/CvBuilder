@@ -1,4 +1,5 @@
 ﻿using CvBuilder.Core.UserCases.Commands._03_AddPersonalInfo;
+using CvBuilder.Core.UserCases.Commands._07_UpdateUserPhotoUrl;
 using CvBuilder.Core.Wrappers;
 
 namespace CvBuilder.Core.Services
@@ -32,7 +33,7 @@ namespace CvBuilder.Core.Services
 
             var entity = user.UpdateBasicInfo(command);
 
-            await _repo.UpdatePersonalUserInfo(entity);
+            await _repo.UpdateUser(entity);
 
             return ApiResult.Success();
         }
@@ -42,7 +43,7 @@ namespace CvBuilder.Core.Services
         {
             var entity = UserMapper.Map(command);
 
-            await _repo.AddAboutMeToUser(entity);
+            await _repo.AddAboutMe(entity);
 
             return ApiResult.Success();
         }
@@ -52,7 +53,7 @@ namespace CvBuilder.Core.Services
         {
             var entity = UserMapper.Map(command);
 
-            await _repo.AddWorkExperienceToUser(entity);
+            await _repo.AddWorkExperience(entity);
 
             return ApiResult.Success();
         }
@@ -62,11 +63,24 @@ namespace CvBuilder.Core.Services
         {
             var entity = UserMapper.Map(command);
 
-            await _repo.AddSkillToUser(entity);
+            await _repo.AddSkill(entity);
 
             return ApiResult.Success();
         }
 
-  
+
+        public async Task<ApiResult> UpdateUserPhotoUrl(UpdateUserPhotoUrlCommand command)
+        {
+            var user = await _repo.GetUserByUserName(_httpContextAccessor.GetUserNameFromToken());
+
+            if (user == default)
+                return ApiResult.Fail("The user does not exist");
+
+            var entity = user.UpdateUserPhotoUrl(command);
+
+            await _repo.UpdateUser(entity);
+
+            return ApiResult.Success();
+        }
     }
 }

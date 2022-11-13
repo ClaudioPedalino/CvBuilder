@@ -30,22 +30,25 @@ namespace CvBuilder.Core.Data
         {
             var userName = _httpContextAccessor.GetUserNameFromToken();
 
-            var user = Users.FirstOrDefault(x => x.UserName == userName);
-
-            foreach (var entityEntry in ChangeTracker.Entries())
+            if (!string.IsNullOrWhiteSpace(userName))
             {
-                if (entityEntry.IsByUser())
+                var user = Users.FirstOrDefault(x => x.UserName == userName);
+
+                foreach (var entityEntry in ChangeTracker.Entries())
                 {
-                    if (entityEntry.IsNew())
+                    if (entityEntry.IsByUser())
                     {
-                        entityEntry.SetTenant(user.Id);
-                        entityEntry.SetCreatedDate();
+                        if (entityEntry.IsNew())
+                        {
+                            entityEntry.SetTenant(user.Id);
+                            entityEntry.SetCreatedDate();
+                        }
+                        //else if (entityEntry.IsUpdate())
+                        //{
+                        //    // entityEntry.SetTenant(TenantId); Ver si es necesario
+                        //    entityEntry.SetUpdateDate();
+                        //}
                     }
-                    //else if (entityEntry.IsUpdate())
-                    //{
-                    //    // entityEntry.SetTenant(TenantId); Ver si es necesario
-                    //    entityEntry.SetUpdateDate();
-                    //}
                 }
             }
 

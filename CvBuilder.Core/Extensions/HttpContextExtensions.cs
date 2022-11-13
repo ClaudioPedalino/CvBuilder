@@ -10,6 +10,9 @@ namespace CvBuilder.Core.Extensions
                 .ToString()
                 .Replace("Bearer ", string.Empty);
 
+            if (string.IsNullOrWhiteSpace(jwtToken))
+                return string.Empty;
+
             var tokenHandler = new JwtSecurityTokenHandler();
             var tokenValues = tokenHandler.ReadJwtToken(jwtToken);
             var userEmail = tokenValues.Subject;

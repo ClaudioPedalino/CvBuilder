@@ -21,28 +21,25 @@
 
         public async Task<User> GetUserByUserName(string email) => await _dataContext.Users.FirstOrDefaultAsync(x => x.UserName == email);
 
-        public async Task CreateUser(User entity) => await _dataContext.Users.AddAsync(entity);
-
-
-        public async Task UpdatePersonalUserInfo(User entity)
+        public async Task UpdateUser(User entity)
         {
             _dataContext.Users.Update(entity);
             await Save();
         }
 
-        public async Task AddAboutMeToUser(AboutMe entity)
+        public async Task AddAboutMe(AboutMe entity)
         {
             await _dataContext.AboutsMe.AddAsync(entity);
             await Save();
         }
 
-        public async Task AddWorkExperienceToUser(WorkExperience entity)
+        public async Task AddWorkExperience(WorkExperience entity)
         {
             await _dataContext.WorkExperiences.AddAsync(entity);
             await Save();
         }
 
-        public async Task AddSkillToUser(Skill entity)
+        public async Task AddSkill(Skill entity)
         {
             await _dataContext.Skills.AddAsync(entity);
             await Save();

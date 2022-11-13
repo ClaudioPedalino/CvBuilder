@@ -19,13 +19,13 @@ namespace CvBuilder.Core.Services
         }
 
 
-        public AuthenticationResult LoginUser(LoginUserCommand command)
+        public async Task<AuthenticationResult> LoginUser(LoginUserCommand command)
         {
-            var user = _userManager.FindByEmailAsync(command.Email).Result;
+            var user = await _userManager.FindByEmailAsync(command.Email);
             if (user == null)
                 return AuthenticationResult.Fail("User or passwords are incorrect");
 
-            var userHasValidPassword = _userManager.CheckPasswordAsync(user, command.Password).Result;
+            var userHasValidPassword = await _userManager.CheckPasswordAsync(user, command.Password);
             if (!userHasValidPassword)
                 return AuthenticationResult.Fail("User or passwords are incorrect");
 
@@ -33,15 +33,15 @@ namespace CvBuilder.Core.Services
         }
 
 
-        public AuthenticationResult RegisterUser(RegisterUserCommand command)
+        public async Task<AuthenticationResult> RegisterUser(RegisterUserCommand command)
         {
-            var isExistingUser = _userManager.FindByEmailAsync(command.Email).Result;
+            var isExistingUser = await _userManager.FindByEmailAsync(command.Email);
             if (isExistingUser != null)
                 return AuthenticationResult.Fail("The uses already exist");
 
             var entity = UserMapper.Map(command);
 
-            var createdUser = _userManager.CreateAsync(entity, command.Password).Result;
+            var createdUser = await _userManager.CreateAsync(entity, command.Password);
 
             if (!createdUser.Succeeded)
                 return AuthenticationResult.Fail(string.Join(" | ", createdUser.Errors));

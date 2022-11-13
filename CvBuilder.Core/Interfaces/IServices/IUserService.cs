@@ -1,6 +1,5 @@
-﻿
-
-using CvBuilder.Core.UserCases.Commands._03_AddPersonalInfo;
+﻿using CvBuilder.Core.UserCases.Commands._03_AddPersonalInfo;
+using CvBuilder.Core.UserCases.Commands._07_UpdateUserPhotoUrl;
 using CvBuilder.Core.Wrappers;
 
 namespace CvBuilder.Core.Interfaces.IServices
@@ -13,5 +12,6 @@ namespace CvBuilder.Core.Interfaces.IServices
         Task<ApiResult> AddAboutMeToUser(AddAboutMeToUserCommand command);
         Task<ApiResult> AddWorkExperienceToUser(AddWorkExperienceToUserCommand command);
         Task<ApiResult> AddSkillToUser(AddSkillToUserCommand command);
+        Task<ApiResult> UpdateUserPhotoUrl(UpdateUserPhotoUrlCommand command);
     }
 }

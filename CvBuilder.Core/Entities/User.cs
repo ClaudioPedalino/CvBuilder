@@ -1,5 +1,6 @@
 ﻿using CvBuilder.Core.Interfaces;
 using CvBuilder.Core.UserCases.Commands._03_AddPersonalInfo;
+using CvBuilder.Core.UserCases.Commands._07_UpdateUserPhotoUrl;
 
 namespace CvBuilder.Core.Entities
 {
@@ -22,7 +23,7 @@ namespace CvBuilder.Core.Entities
             Linkedin = linkedin;
             Location = location;
             Github = github;
-
+            
             UserName = email;
             Active = true;
             WorkExperiences = new List<WorkExperience>();
@@ -33,9 +34,6 @@ namespace CvBuilder.Core.Entities
         {
             Email = email;
 
-            FirstName = string.Empty;
-            LastName = string.Empty;
-
             UserName = email;
             Active = true;
             AboutMe = new List<AboutMe>();
@@ -45,10 +43,10 @@ namespace CvBuilder.Core.Entities
 
 
         public Guid Id { get; private set; }
-        //public string PhotoUrl { get; private set; }
-        public string FirstName { get; private set; }
-        public string LastName { get; private set; }
-        public int Age { get; private set; }
+        public string? PhotoUrl { get; private set; }
+        public string? FirstName { get; private set; }
+        public string? LastName { get; private set; }
+        public int? Age { get; private set; }
         public string? CurrentPosition { get; private set; }
         public string? Linkedin { get; private set; }
         public string? Location { get; private set; }
@@ -72,6 +70,13 @@ namespace CvBuilder.Core.Entities
             Location = !string.IsNullOrWhiteSpace(command.Location) ? command.Location : default;
             Github = !string.IsNullOrWhiteSpace(command.Github) ? command.Github : default;
 
+            return this;
+        }
+
+        public User UpdateUserPhotoUrl(UpdateUserPhotoUrlCommand command)
+        {
+            PhotoUrl = !string.IsNullOrWhiteSpace(command.PhotoUrl) ? command.PhotoUrl : default;
+            
             return this;
         }
     }

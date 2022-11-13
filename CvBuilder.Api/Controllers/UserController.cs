@@ -1,4 +1,5 @@
 using CvBuilder.Core.UserCases.Commands._03_AddPersonalInfo;
+using CvBuilder.Core.UserCases.Commands._07_UpdateUserPhotoUrl;
 using Microsoft.AspNetCore.OutputCaching;
 
 namespace CvBuilder.Api.Controllers
@@ -38,6 +39,18 @@ namespace CvBuilder.Api.Controllers
         public async Task<IResult> AddPersonalUserInfo([FromBody] PersonalUserInfoCommand command)
         {
             var response = await _service.UpdatePersonalUserInfo(command);
+
+            return response.IsSuccess
+                ? Results.Ok(response)
+                : Results.BadRequest(response);
+        }
+
+
+        [HttpPost("update-user-photo-url")]
+        [Authorize]
+        public async Task<IResult> UpdateUserPhotoUrl([FromBody] UpdateUserPhotoUrlCommand command)
+        {
+            var response = await _service.UpdateUserPhotoUrl(command);
 
             return response.IsSuccess
                 ? Results.Ok(response)
