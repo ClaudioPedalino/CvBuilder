@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CvBuilder.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class AccountController : ControllerBase
     {

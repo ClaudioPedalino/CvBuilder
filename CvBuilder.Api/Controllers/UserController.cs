@@ -1,3 +1,4 @@
+using CvBuilder.Core.UserCases.Commands._03_AddPersonalInfo;
 using Microsoft.AspNetCore.OutputCaching;
 
 namespace CvBuilder.Api.Controllers
@@ -29,6 +30,18 @@ namespace CvBuilder.Api.Controllers
         public IResult GetUserById([FromRoute] Guid id)
         {
             return default;
+        }
+
+
+        [HttpPost("add-personal-info")]
+        [Authorize]
+        public async Task<IResult> AddPersonalUserInfo([FromBody] PersonalUserInfoCommand command)
+        {
+            var response = await _service.UpdatePersonalUserInfo(command);
+
+            return response.IsSuccess
+                ? Results.Ok(response)
+                : Results.BadRequest(response);
         }
 
 

@@ -45,19 +45,23 @@ namespace CvBuilder.Core.Mappers
             });
         }
 
-
         public static User Map(RegisterUserCommand input)
         {
-            return new User(
-                firstName: input.FirstName,
-                lastName: input.LastName,
-                age: input.Age,
-                currentPosition: input.CurrentPosition,
-                email: input.Email,
-                linkedin: input.Linkedin,
-                location: input.Location,
-                github: input.Github);
+            return new User(email: input.Email);
         }
+
+        //public static User Map(FullRegisterUserCommand input)
+        //{
+        //    return new User(
+        //        firstName: input.FirstName,
+        //        lastName: input.LastName,
+        //        age: input.Age,
+        //        currentPosition: input.CurrentPosition,
+        //        email: input.Email,
+        //        linkedin: input.Linkedin,
+        //        location: input.Location,
+        //        github: input.Github);
+        //}
 
 
         public static AboutMe Map(AddAboutMeToUserCommand command)

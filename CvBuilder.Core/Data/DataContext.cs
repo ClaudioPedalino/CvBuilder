@@ -25,7 +25,8 @@ namespace CvBuilder.Core.Data
                 .HaveColumnType("date");
         }
 
-        public override int SaveChanges()
+
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             var userName = _httpContextAccessor.GetUserNameFromToken();
 
@@ -48,7 +49,7 @@ namespace CvBuilder.Core.Data
                 }
             }
 
-            return base.SaveChanges();
+            return await base.SaveChangesAsync(cancellationToken);
         }
     }
 }

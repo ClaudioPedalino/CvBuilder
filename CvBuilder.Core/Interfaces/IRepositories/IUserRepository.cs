@@ -9,6 +9,7 @@ namespace CvBuilder.Core.Interfaces.IRepositories
         Task<User> GetUserByUserName(string email);
 
         Task CreateUser(User entity);
+        Task UpdatePersonalUserInfo(User entity);
         Task AddAboutMeToUser(AboutMe entity);
         Task AddWorkExperienceToUser(WorkExperience entity);
         Task AddSkillToUser(Skill entity);
