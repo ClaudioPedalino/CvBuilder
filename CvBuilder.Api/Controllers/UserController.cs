@@ -26,8 +26,6 @@ namespace CvBuilder.Api.Controllers
 
         [HttpGet("{id}")]
         //[Authorize]
-        //[OutputCache(Duration = 10, VaryByRouteValueNames = new string[] { "*" })]
-        //[OutputCache(Duration = 10, VaryByHeaderNames = new string[] { "Authorization" })]
         public IResult GetUserById([FromRoute] Guid id)
         {
             return default;

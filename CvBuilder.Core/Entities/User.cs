@@ -23,7 +23,7 @@ namespace CvBuilder.Core.Entities
             Linkedin = linkedin;
             Location = location;
             Github = github;
-            
+
             UserName = email;
             Active = true;
             WorkExperiences = new List<WorkExperience>();
@@ -76,7 +76,7 @@ namespace CvBuilder.Core.Entities
         public User UpdateUserPhotoUrl(UpdateUserPhotoUrlCommand command)
         {
             PhotoUrl = !string.IsNullOrWhiteSpace(command.PhotoUrl) ? command.PhotoUrl : default;
-            
+
             return this;
         }
     }

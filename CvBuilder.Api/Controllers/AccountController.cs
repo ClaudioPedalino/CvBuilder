@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-
-namespace CvBuilder.Api.Controllers
+﻿namespace CvBuilder.Api.Controllers
 {
     [Route("[controller]")]
     [ApiController]

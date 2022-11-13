@@ -1,6 +1,4 @@
-﻿using Microsoft.Identity.Client;
-
-namespace CvBuilder.Core.IoC
+﻿namespace CvBuilder.Core.IoC
 {
     public static class DependencyInjection
     {

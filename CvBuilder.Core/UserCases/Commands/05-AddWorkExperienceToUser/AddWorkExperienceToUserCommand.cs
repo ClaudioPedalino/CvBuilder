@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace CvBuilder.Core.UserCases.Commands.AddWorkExperienceToUser
+﻿namespace CvBuilder.Core.UserCases.Commands.AddWorkExperienceToUser
 {
     public class AddWorkExperienceToUserCommand
     {
