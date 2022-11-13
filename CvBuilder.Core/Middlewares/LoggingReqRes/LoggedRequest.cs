@@ -1,0 +1,17 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CvBuilder.Core.Middlewares.LoggingReqRes
+{
+    public class LoggedRequest
+    {
+        public string IpRequested { get; init; }
+        public string RequestTo { get; init; }
+        public string HttpMethod { get; init; }
+        public string Path { get; init; }
+        public string QueryParams { get; init; }
+    }
+}

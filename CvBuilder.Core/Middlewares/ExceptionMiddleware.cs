@@ -23,13 +23,21 @@ namespace CvBuilder.Core.Middlewares
             {
                 _logger.LogError($"[Error]: {ex.Message}");
 
+                if (ex.InnerException != default && !string.IsNullOrWhiteSpace(ex.InnerException.Message))
+                {
+                    _logger.LogError($"[Error]: {ex.InnerException.Message}");
+                }
+
                 httpContext.Response.ContentType = "application/json";
                 httpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
                 await httpContext.Response.WriteAsync(JsonSerializer.Serialize(new ProblemDetails
                 {
                     Status = httpContext.Response.StatusCode,
-                    Title = ex.Message
+                    Title = $"""
+                    {ex.Message}
+                    {ex.InnerException?.Message}
+                    """
                 }));
             }
         }

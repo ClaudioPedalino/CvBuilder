@@ -30,7 +30,7 @@
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            return AuthenticationResult.Success(tokenHandler.WriteToken(token));
+            return AuthenticationResult.SuccessAuth(tokenHandler.WriteToken(token));
         }
     }
 }

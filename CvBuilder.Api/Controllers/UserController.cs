@@ -1,5 +1,6 @@
 using CvBuilder.Core.UserCases.Commands._03_AddPersonalInfo;
 using CvBuilder.Core.UserCases.Commands._07_UpdateUserPhotoUrl;
+using MediatR;
 using Microsoft.AspNetCore.OutputCaching;
 
 namespace CvBuilder.Api.Controllers
@@ -9,10 +10,12 @@ namespace CvBuilder.Api.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _service;
+        private readonly IMediator _mediator;
 
-        public UserController(IUserService service)
+        public UserController(IUserService service, IMediator mediator)
         {
             _service = service;
+            _mediator = mediator;
         }
 
         [HttpGet]
@@ -36,7 +39,8 @@ namespace CvBuilder.Api.Controllers
         [Authorize]
         public async Task<IResult> AddPersonalUserInfo([FromBody] PersonalUserInfoCommand command)
         {
-            var response = await _service.UpdatePersonalUserInfo(command);
+            //var response = await _service.UpdatePersonalUserInfo(command);
+            var response = await _mediator.Send(command);
 
             return response.IsSuccess
                 ? Results.Ok(response)

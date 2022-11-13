@@ -6,7 +6,7 @@ namespace CvBuilder.Core.Identity
     {
         public string Token { get; private set; }
 
-        public static AuthenticationResult Success(string token, string optionalMessage = "")
+        public static AuthenticationResult SuccessAuth(string token, string optionalMessage = "")
         {
             return new AuthenticationResult()
             {
@@ -16,7 +16,7 @@ namespace CvBuilder.Core.Identity
             };
         }
 
-        public static AuthenticationResult Fail(string errorMessage)
+        public static AuthenticationResult FailAuth(string errorMessage)
         {
             return new AuthenticationResult()
             {

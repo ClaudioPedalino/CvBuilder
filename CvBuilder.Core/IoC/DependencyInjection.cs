@@ -1,4 +1,8 @@
-﻿namespace CvBuilder.Core.IoC
+﻿using CvBuilder.Core.UserCases.Commands._03_AddPersonalInfo;
+using MediatR;
+using System.Reflection;
+
+namespace CvBuilder.Core.IoC
 {
     public static class DependencyInjection
     {
@@ -11,6 +15,13 @@
                 options.UseSqlServer(configuration.GetConnectionString("CvBuilderDB"));
             });
 
+
+            services.AddMediatR(typeof(PersonalUserInfoCommand).GetTypeInfo().Assembly);
+            ////.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehaviour<,>))
+            //.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>))
+            //.AddTransient(typeof(IPipelineBehavior<,>), typeof(TransactionBehavior<,>))
+            //.AddTransient(typeof(IPipelineBehavior<,>), typeof(ApiKeyBehaviour<,>))
+            //.AddTransient(typeof(IPipelineBehavior<,>), typeof(CacheBehaviour<,>));
 
             services.AddTransient<IUserRepository, UserRepository>();
 
@@ -36,6 +47,7 @@
         public static IApplicationBuilder AddCvBuilderCoreApp(this IApplicationBuilder app, ConfigurationManager configuration)
         {
             app.UseMiddleware<ExceptionMiddleware>();
+            //app.UseMiddleware<RequestResponseLoggingMiddleware>();
             app.UseOutputCache();
 
             //app.UseHealthCheck(configuration);
