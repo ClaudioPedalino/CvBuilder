@@ -5,6 +5,8 @@
         private readonly DataContext _dataContext;
 
         public UserRepository(DataContext dataContext) => _dataContext = dataContext;
+
+
         public async Task Save() => await _dataContext.SaveChangesAsync();
 
 
@@ -28,6 +30,25 @@
 
         public async Task<User> GetUserByUserName(string email)
             => await _dataContext.Users.FirstOrDefaultAsync(x => x.UserName == email);
+
+
+        public async Task<List<User>> GetUsersBySearch(string search)
+        {
+            var words = search.Split(' ');
+
+            var response = await _dataContext.Users
+                .Include(x => x.AboutMe)
+                .Include(x => x.WorkExperiences)
+                .Include(x => x.Skills)
+                .ToListAsync();
+                //.Where(x => words.Contains(x.CurrentPosition))
+                //.Select(x => x.Skills.Where(x =>
+                //    words.Contains(x.ShortDescription) || words.Contains(x.LongDescription)))
+                //.ToListAsync();
+
+
+            return default;
+        }
 
 
         public async Task UpdateUser(User entity)
@@ -56,6 +77,7 @@
             await _dataContext.Skills.AddAsync(entity);
             await Save();
         }
+
 
     }
 }

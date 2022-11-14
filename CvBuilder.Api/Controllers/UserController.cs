@@ -1,3 +1,5 @@
+using CvBuilder.Core.UserCases.Queries.GetUserBySearch;
+
 namespace CvBuilder.Api.Controllers
 {
     [ApiController]
@@ -22,6 +24,13 @@ namespace CvBuilder.Api.Controllers
         public async Task<IResult> GetUserById([FromRoute] Guid id)
         {
             return Results.Ok(await Mediator.Send(new GetUserProfileQuery(id)));
+        }
+
+        [HttpGet("search")]
+        //[Authorize]
+        public async Task<IResult> GetUserBySearch([FromQuery] string search)
+        {
+            return Results.Ok(await Mediator.Send(new GetUserBySearchQuery(search)));
         }
 
 
