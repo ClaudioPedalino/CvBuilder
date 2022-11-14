@@ -1,7 +1,10 @@
-﻿namespace CvBuilder.Core.UserCases.Commands.AddSkillToUser
+﻿using CvBuilder.Core.Enums;
+
+namespace CvBuilder.Core.UserCases.Commands.AddSkillToUser
 {
-    public record AddSkillToUserCommand(string Logo,
-                                        string Title,
+    public record AddSkillToUserCommand(SkillEnum skill,
+                                        string? Logo,
+                                        string? Title,
                                         string ShortDescription,
                                         string LongDescription) : IRequest<ApiResult>;
 
@@ -17,11 +20,33 @@
 
         public async Task<ApiResult> Handle(AddSkillToUserCommand command, CancellationToken cancellationToken)
         {
-            var entity = UserMapper.Map(command);
+            var (skillTitle, skillLogo) = GetValues(command);
+
+            var entity = UserMapper.Map(command, skillTitle: skillTitle, skillLogo: skillLogo);
 
             await _repo.AddSkill(entity);
 
             return ApiResult.Success();
+        }
+
+
+        private static (string skillTitle, string skillLogo) GetValues(AddSkillToUserCommand command)
+        {
+            string skillTitle = string.Empty;
+            string skillLogo = string.Empty;
+
+            if (command.skill == SkillEnum.Other)
+            {
+                skillTitle = command.Title ?? string.Empty;
+                skillLogo = command.Logo ?? string.Empty;
+            }
+            else
+            {
+                skillTitle = Enum.GetName(typeof(SkillEnum), command.skill);
+                skillLogo = SkillLogos.Data.GetValueOrDefault(command.skill);
+            }
+            
+            return (SkillTitle: skillTitle, SkillLogo: skillLogo);
         }
     }
 }

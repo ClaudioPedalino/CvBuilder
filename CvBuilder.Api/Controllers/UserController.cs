@@ -8,7 +8,7 @@ namespace CvBuilder.Api.Controllers
 
 
         [HttpGet]
-        [OutputCache(Duration = 5)]
+        [OutputCache(Duration = 30)]
         //[Authorize]
         public async Task<IResult> GetUsers([FromQuery] GetUsersQuery query)
         {
@@ -17,7 +17,7 @@ namespace CvBuilder.Api.Controllers
 
 
         [HttpGet("{id}")]
-        [OutputCache(Duration = 5)]
+        [OutputCache(Duration = 30)]
         //[Authorize]
         public async Task<IResult> GetUserById([FromRoute] Guid id)
         {

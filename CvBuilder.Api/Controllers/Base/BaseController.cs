@@ -1,6 +1,4 @@
-﻿using MediatR;
-
-namespace CvBuilder.Api.Controllers.Base
+﻿namespace CvBuilder.Api.Controllers.Base
 {
     public class BaseController : ControllerBase
     {
