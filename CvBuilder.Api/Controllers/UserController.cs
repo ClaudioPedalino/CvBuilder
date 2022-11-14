@@ -1,29 +1,23 @@
+using CvBuilder.Api.Controllers.Base;
 using CvBuilder.Core.UserCases.Commands._03_AddPersonalInfo;
 using CvBuilder.Core.UserCases.Commands._07_UpdateUserPhotoUrl;
-using MediatR;
+using CvBuilder.Core.UserCases.Queries.GetUsers;
 using Microsoft.AspNetCore.OutputCaching;
 
 namespace CvBuilder.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class UserController : ControllerBase
+    public class UserController : BaseController
     {
-        private readonly IUserService _service;
-        private readonly IMediator _mediator;
+        public UserController(IServiceProvider serviceProvider) : base(serviceProvider) { }
 
-        public UserController(IUserService service, IMediator mediator)
-        {
-            _service = service;
-            _mediator = mediator;
-        }
 
         [HttpGet]
         [OutputCache(Duration = 5)]
-        public async Task<IResult> GetUsers()
+        public async Task<IResult> GetUsers([FromQuery] GetUserQuery query)
         {
-            var response = await _service.GetUsers();
-            return Results.Ok(response);
+            return Results.Ok(await Mediator.Send(query));
         }
 
 
@@ -39,8 +33,7 @@ namespace CvBuilder.Api.Controllers
         [Authorize]
         public async Task<IResult> AddPersonalUserInfo([FromBody] PersonalUserInfoCommand command)
         {
-            //var response = await _service.UpdatePersonalUserInfo(command);
-            var response = await _mediator.Send(command);
+            var response = await Mediator.Send(command);
 
             return response.IsSuccess
                 ? Results.Ok(response)
@@ -50,9 +43,9 @@ namespace CvBuilder.Api.Controllers
 
         [HttpPost("update-user-photo-url")]
         [Authorize]
-        public async Task<IResult> UpdateUserPhotoUrl([FromBody] UpdateUserPhotoUrlCommand command)
+        public async Task<IResult> UpdateUserPhotoUrl([FromBody] UserPhotoUrlCommand command)
         {
-            var response = await _service.UpdateUserPhotoUrl(command);
+            var response = await Mediator.Send(command);
 
             return response.IsSuccess
                 ? Results.Ok(response)
@@ -64,7 +57,7 @@ namespace CvBuilder.Api.Controllers
         [Authorize]
         public async Task<IResult> AddAboutMeToUser([FromBody] AddAboutMeToUserCommand command)
         {
-            var response = await _service.AddAboutMeToUser(command);
+            var response = await Mediator.Send(command);
 
             return response.IsSuccess
                 ? Results.Ok(response)
@@ -76,7 +69,7 @@ namespace CvBuilder.Api.Controllers
         [Authorize]
         public async Task<IResult> AddWorkExperienceToUser([FromBody] AddWorkExperienceToUserCommand command)
         {
-            var response = await _service.AddWorkExperienceToUser(command);
+            var response = await Mediator.Send(command);
 
             return response.IsSuccess
                 ? Results.Ok(response)
@@ -88,7 +81,7 @@ namespace CvBuilder.Api.Controllers
         [Authorize]
         public async Task<IResult> AddSkillToUser([FromBody] AddSkillToUserCommand command)
         {
-            var response = await _service.AddSkillToUser(command);
+            var response = await Mediator.Send(command);
 
             return response.IsSuccess
                 ? Results.Ok(response)

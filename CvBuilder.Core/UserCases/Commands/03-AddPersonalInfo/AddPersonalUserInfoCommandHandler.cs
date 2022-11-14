@@ -1,7 +1,4 @@
-﻿using CvBuilder.Core.Wrappers;
-using MediatR;
-
-namespace CvBuilder.Core.UserCases.Commands._03_AddPersonalInfo
+﻿namespace CvBuilder.Core.UserCases.Commands._03_AddPersonalInfo
 {
     public record PersonalUserInfoCommand(string FirstName,
                                           string LastName,

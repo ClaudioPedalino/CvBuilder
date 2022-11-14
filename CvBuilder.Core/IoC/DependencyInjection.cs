@@ -1,6 +1,4 @@
 ﻿using CvBuilder.Core.UserCases.Commands._03_AddPersonalInfo;
-using MediatR;
-using System.Reflection;
 
 namespace CvBuilder.Core.IoC
 {
@@ -16,7 +14,8 @@ namespace CvBuilder.Core.IoC
             });
 
 
-            services.AddMediatR(typeof(PersonalUserInfoCommand).GetTypeInfo().Assembly);
+            //services.AddMediatR(typeof(PersonalUserInfoCommand).GetTypeInfo().Assembly);
+            services.AddMediatR(typeof(PersonalUserInfoCommand));
             ////.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehaviour<,>))
             //.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>))
             //.AddTransient(typeof(IPipelineBehavior<,>), typeof(TransactionBehavior<,>))
@@ -25,7 +24,6 @@ namespace CvBuilder.Core.IoC
 
             services.AddTransient<IUserRepository, UserRepository>();
 
-            services.AddTransient<IUserService, UserService>();
             services.AddTransient<IAccountService, AccountService>();
 
             services.AddTransient<IAuthTokernHelper, AuthTokernHelper>();

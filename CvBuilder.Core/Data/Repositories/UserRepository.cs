@@ -17,10 +17,10 @@
                 .ToListAsync();
         }
 
-        public async Task<User> GetUserById(Guid id) 
+        public async Task<User> GetUserById(Guid id)
             => await _dataContext.Users.FirstOrDefaultAsync(x => x.Id == id);
 
-        public async Task<User> GetUserByUserName(string email) 
+        public async Task<User> GetUserByUserName(string email)
             => await _dataContext.Users.FirstOrDefaultAsync(x => x.UserName == email);
 
         public async Task UpdateUser(User entity)

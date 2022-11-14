@@ -14,6 +14,8 @@ global using CvBuilder.Core.UserCases.Commands.AddWorkExperienceToUser;
 global using CvBuilder.Core.UserCases.Commands.CreateUser;
 global using CvBuilder.Core.UserCases.Commands.LoginUser;
 global using CvBuilder.Core.UserCases.Queries.GetUsers;
+global using CvBuilder.Core.Wrappers;
+global using MediatR;
 global using Microsoft.AspNetCore.Authentication.JwtBearer;
 global using Microsoft.AspNetCore.Builder;
 global using Microsoft.AspNetCore.Http;

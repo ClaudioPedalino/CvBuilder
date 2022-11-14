@@ -73,7 +73,7 @@ namespace CvBuilder.Core.Entities
             return this;
         }
 
-        public User UpdateUserPhotoUrl(UpdateUserPhotoUrlCommand command)
+        public User UpdateUserPhotoUrl(UserPhotoUrlCommand command)
         {
             PhotoUrl = !string.IsNullOrWhiteSpace(command.PhotoUrl) ? command.PhotoUrl : default;
 

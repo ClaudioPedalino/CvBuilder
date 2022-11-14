@@ -1,6 +1,4 @@
-﻿using CvBuilder.Core.Wrappers;
-
-namespace CvBuilder.Core.Identity
+﻿namespace CvBuilder.Core.Identity
 {
     public class AuthenticationResult : ApiResult
     {

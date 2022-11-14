@@ -1,7 +1,7 @@
 ﻿
 namespace CvBuilder.Core.Mappers
 {
-    public class UserMapper
+    public static class UserMapper
     {
         public static List<GetUserResponse> Map(List<User> result)
         {
