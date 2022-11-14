@@ -1,9 +1,9 @@
 ﻿namespace CvBuilder.Core.UserCases.Queries.GetUsers
 {
-    public class GetUserQuery : IRequest<List<GetUserResponse>> { }
+    public class GetUsersQuery : IRequest<List<GetUserResponse>> { }
 
 
-    public class GetUserQueryHandler : IRequestHandler<GetUserQuery, List<GetUserResponse>>
+    public class GetUserQueryHandler : IRequestHandler<GetUsersQuery, List<GetUserResponse>>
     {
         private readonly IUserRepository _repo;
 
@@ -13,7 +13,7 @@
         }
 
 
-        public async Task<List<GetUserResponse>> Handle(GetUserQuery request, CancellationToken cancellationToken)
+        public async Task<List<GetUserResponse>> Handle(GetUsersQuery request, CancellationToken cancellationToken)
         {
             var result = await _repo.GetUsers();
 

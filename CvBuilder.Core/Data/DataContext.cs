@@ -1,6 +1,4 @@
-﻿using CvBuilder.Core.CustomImplementations;
-
-namespace CvBuilder.Core.Data
+﻿namespace CvBuilder.Core.Data
 {
     public class DataContext : DbContext
     {

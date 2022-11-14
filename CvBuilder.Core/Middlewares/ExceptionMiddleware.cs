@@ -1,6 +1,4 @@
-﻿
-
-namespace CvBuilder.Core.Middlewares
+﻿namespace CvBuilder.Core.Middlewares
 {
     public class ExceptionMiddleware
     {
@@ -31,7 +29,7 @@ namespace CvBuilder.Core.Middlewares
                 httpContext.Response.ContentType = "application/json";
                 httpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
-                await httpContext.Response.WriteAsync(JsonSerializer.Serialize(new ProblemDetails
+                await httpContext.Response.WriteAsync(System.Text.Json.JsonSerializer.Serialize(new ProblemDetails
                 {
                     Status = httpContext.Response.StatusCode,
                     Title = $"""

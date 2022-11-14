@@ -1,8 +1,4 @@
-﻿using CvBuilder.Core.Interfaces;
-using CvBuilder.Core.UserCases.Commands._03_AddPersonalInfo;
-using CvBuilder.Core.UserCases.Commands._07_UpdateUserPhotoUrl;
-
-namespace CvBuilder.Core.Entities
+﻿namespace CvBuilder.Core.Entities
 {
     public class User : IdentityUser, IAuditCreation
     {

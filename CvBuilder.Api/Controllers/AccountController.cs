@@ -2,36 +2,20 @@
 {
     [Route("[controller]")]
     [ApiController]
-    public class AccountController : ControllerBase
+    public class AccountController : BaseController
     {
-        private readonly IAccountService _service;
-
-        public AccountController(IAccountService service)
-        {
-            _service = service;
-        }
+        public AccountController(IServiceProvider serviceProvider) : base(serviceProvider) { }
 
 
         [HttpPost("login")]
         public async Task<IResult> LoginUser([FromBody] LoginUserCommand command)
-        {
-            var response = await _service.LoginUser(command);
+            => await Mediator.SendCommand(command);
 
-            return response.IsSuccess
-                ? Results.Ok(response)
-                : Results.BadRequest(response);
-        }
 
 
         [HttpPost("register")]
         public async Task<IResult> RegisterUser([FromBody] RegisterUserCommand command)
-        {
-            var response = await _service.RegisterUser(command);
-
-            return response.IsSuccess
-                ? Results.Ok(response)
-                : Results.BadRequest(response);
-        }
+            => await Mediator.SendCommand(command);
 
 
         [HttpPost("confirm")]

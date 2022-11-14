@@ -1,11 +1,9 @@
-﻿
-
-namespace CvBuilder.Core.Interfaces.IRepositories
+﻿namespace CvBuilder.Core.Interfaces.IRepositories
 {
     public interface IUserRepository
     {
         Task<List<User>> GetUsers();
-        Task<User> GetUserById(Guid id);
+        Task<User> GetUserProfile(Guid id);
         Task<User> GetUserByUserName(string email);
 
         Task UpdateUser(User entity);

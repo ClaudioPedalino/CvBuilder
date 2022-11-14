@@ -11,17 +11,24 @@
         public async Task<List<User>> GetUsers()
         {
             return await _dataContext.Users
-                .Include(x => x.AboutMe)
-                .Include(x => x.WorkExperiences)
-                .Include(x => x.Skills)
+                .Where(x => x.Active)
                 .ToListAsync();
         }
 
-        public async Task<User> GetUserById(Guid id)
-            => await _dataContext.Users.FirstOrDefaultAsync(x => x.Id == id);
+
+        public async Task<User> GetUserProfile(Guid id)
+        {
+            return await _dataContext.Users
+                .Include(x => x.AboutMe)
+                .Include(x => x.WorkExperiences)
+                .Include(x => x.Skills)
+                .FirstOrDefaultAsync(x => x.Id == id);
+        }
+
 
         public async Task<User> GetUserByUserName(string email)
             => await _dataContext.Users.FirstOrDefaultAsync(x => x.UserName == email);
+
 
         public async Task UpdateUser(User entity)
         {
@@ -29,11 +36,13 @@
             await Save();
         }
 
+
         public async Task AddAboutMe(AboutMe entity)
         {
             await _dataContext.AboutsMe.AddAsync(entity);
             await Save();
         }
+
 
         public async Task AddWorkExperience(WorkExperience entity)
         {
@@ -41,10 +50,12 @@
             await Save();
         }
 
+
         public async Task AddSkill(Skill entity)
         {
             await _dataContext.Skills.AddAsync(entity);
             await Save();
         }
+
     }
 }

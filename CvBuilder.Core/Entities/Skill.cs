@@ -1,6 +1,4 @@
-﻿using CvBuilder.Core.Interfaces;
-
-namespace CvBuilder.Core.Entities
+﻿namespace CvBuilder.Core.Entities
 {
     public class Skill : IByUser, IAuditCreation
     {

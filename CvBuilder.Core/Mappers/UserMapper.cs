@@ -1,4 +1,5 @@
-﻿
+﻿using CvBuilder.Core.UserCases.Queries.GetUserProfile;
+
 namespace CvBuilder.Core.Mappers
 {
     public static class UserMapper
@@ -6,6 +7,18 @@ namespace CvBuilder.Core.Mappers
         public static List<GetUserResponse> Map(List<User> result)
         {
             return result.ConvertAll(user => new GetUserResponse()
+            {
+                Id = user.Id,
+                FullName = $"{user.FirstName} {user.LastName}",
+                CurrentPosition = user.CurrentPosition,
+                Email = user.Email,
+            });
+        }
+
+
+        public static GetUserProfileResponse Map(User user)
+        {
+            return new GetUserProfileResponse()
             {
                 Id = user.Id,
                 FirstName = user.FirstName,
@@ -42,7 +55,7 @@ namespace CvBuilder.Core.Mappers
                     ShortDescription = item.ShortDescription,
                     LongDescription = item.LongDescription
                 })
-            });
+            };
         }
 
         public static User Map(RegisterUserCommand input)

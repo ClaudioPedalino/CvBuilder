@@ -1,7 +1,4 @@
-﻿using CvBuilder.Core.Middlewares.LoggingReqRes;
-using Newtonsoft.Json;
-
-namespace CvBuilder.Core.Middlewares
+﻿namespace CvBuilder.Core.Middlewares
 {
     public class RequestResponseLoggingMiddleware
     {

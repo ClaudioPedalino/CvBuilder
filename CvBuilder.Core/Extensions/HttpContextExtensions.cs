@@ -1,5 +1,4 @@
-﻿
-namespace CvBuilder.Core.Extensions
+﻿namespace CvBuilder.Core.Extensions
 {
     public static class HttpContextExtensions
     {

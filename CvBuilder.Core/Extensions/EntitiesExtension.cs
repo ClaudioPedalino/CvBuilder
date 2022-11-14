@@ -1,8 +1,4 @@
-﻿using CvBuilder.Core.Helpers;
-using CvBuilder.Core.Interfaces;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-
-namespace CvBuilder.Core.Extensions
+﻿namespace CvBuilder.Core.Extensions
 {
     public static class EntitiesExtension
     {
