@@ -20,6 +20,10 @@
             if (user == null)
                 return AuthenticationResult.FailAuth("User or passwords are incorrect");
 
+            var isConfirm = await _userManager.IsEmailConfirmedAsync(user);
+            if (!isConfirm)
+                return AuthenticationResult.FailAuth("You need to activate your user first");
+
             var userHasValidPassword = await _userManager.CheckPasswordAsync(user, command.Password);
             if (!userHasValidPassword)
                 return AuthenticationResult.FailAuth("User or passwords are incorrect");

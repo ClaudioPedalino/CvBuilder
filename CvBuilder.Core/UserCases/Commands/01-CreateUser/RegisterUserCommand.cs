@@ -1,4 +1,6 @@
-﻿namespace CvBuilder.Core.UserCases.Commands.CreateUser
+﻿using Newtonsoft.Json.Linq;
+
+namespace CvBuilder.Core.UserCases.Commands.CreateUser
 {
     public record RegisterUserCommand(string Email, string Password) : IRequest<AuthenticationResult>;
 
@@ -25,7 +27,13 @@
             if (!createdUser.Succeeded)
                 return AuthenticationResult.FailAuth(string.Join(" | ", createdUser.Errors));
 
-            return _authTokernHelper.GenerateAuthResult(entity);
+            var token = await _userManager.GenerateEmailConfirmationTokenAsync(entity);
+            
+            var confirmResult = await _userManager.ConfirmEmailAsync(entity, token); // TODO: Remove this, send email
+            
+            //https://learn.microsoft.com/en-us/aspnet/core/security/authentication/accconfirm?view=aspnetcore-7.0&tabs=visual-studio
+
+            return AuthenticationResult.SuccessAuth(token, "This is your token to activate your user");
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace CvBuilder.Api.Controllers
+﻿using CvBuilder.Core.UserCases.Commands._08_ConfirmUser;
+
+namespace CvBuilder.Api.Controllers
 {
     [Route("[controller]")]
     [ApiController]
@@ -7,21 +9,18 @@
         public AccountController(IServiceProvider serviceProvider) : base(serviceProvider) { }
 
 
-        [HttpPost("login")]
-        public async Task<IResult> LoginUser([FromBody] LoginUserCommand command)
-            => await Mediator.SendCommand(command);
-
-
-
         [HttpPost("register")]
         public async Task<IResult> RegisterUser([FromBody] RegisterUserCommand command)
             => await Mediator.SendCommand(command);
 
 
         [HttpPost("confirm")]
-        public IResult ConfirmUser()
-        {
-            return default;
-        }
+        public async Task<IResult> ConfirmUser([FromBody] ConfirmUserCommand command)
+            => await Mediator.SendCommand(command);
+
+
+        [HttpPost("login")]
+        public async Task<IResult> LoginUser([FromBody] LoginUserCommand command)
+            => await Mediator.SendCommand(command);
     }
 }

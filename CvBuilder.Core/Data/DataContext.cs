@@ -6,6 +6,7 @@
 
         public DataContext(DbContextOptions<DataContext> options, IHttpContextAccessor httpContextAccessor) : base(options)
         {
+            Database.EnsureCreated();
             _httpContextAccessor = httpContextAccessor;
         }
 
@@ -22,7 +23,6 @@
                 .HaveConversion<DateOnlyConverter>()
                 .HaveColumnType("date");
         }
-
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {

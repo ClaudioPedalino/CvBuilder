@@ -4,12 +4,24 @@
     {
         public static IServiceCollection AddCvBuilderCore(this IServiceCollection services, ConfigurationManager configuration)
         {
-            services.AddDbContext<DataContext>(options =>
+            var useInFileData = configuration.GetValue<bool>("UseInFileDataBase");
+            if (useInFileData)
             {
-                options.EnableSensitiveDataLogging();
-                options.EnableDetailedErrors();
-                options.UseSqlServer(configuration.GetConnectionString("CvBuilderDB"));
-            });
+                services.AddDbContext<DataContext>(options =>
+                    options.UseSqlite("Filename=MyDatabase.db")
+                );
+
+                services.AddEntityFrameworkSqlite();
+            }
+            else
+            {
+                services.AddDbContext<DataContext>(options =>
+                {
+                    options.EnableSensitiveDataLogging();
+                    options.EnableDetailedErrors();
+                    options.UseSqlServer(configuration.GetConnectionString("CvBuilderDB"));
+                });
+            }
 
 
             services.AddMediatR(typeof(PersonalUserInfoCommand).GetTypeInfo().Assembly);
